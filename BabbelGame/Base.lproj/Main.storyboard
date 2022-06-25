@@ -12,7 +12,7 @@
         <!--Game View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="GameViewController" customModule="BabbelGame" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GameViewController" id="BYZ-38-t0r" customClass="GameViewController" customModule="BabbelGame" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -29,7 +29,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrong Attempts: 3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ze-zz-afj">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrong Attempts: 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ze-zz-afj">
                                                 <rect key="frame" x="262.5" y="20.5" width="143.5" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -73,11 +73,17 @@
                                                         <rect key="frame" x="8" y="8" width="195" height="39"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="filled" title="Correct"/>
+                                                        <connections>
+                                                            <action selector="correctDidTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Rkj-nd-DWi"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jsi-2K-muZ" userLabel="btnWrong">
                                                         <rect key="frame" x="211" y="8" width="195" height="39"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="filled" title="Wrong"/>
+                                                        <connections>
+                                                            <action selector="wrongDidTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3UM-yS-g3m"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
@@ -106,6 +112,12 @@
                             <constraint firstItem="fdd-I8-NaK" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="uuK-O6-NYO"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="lblAnswer" destination="67n-RP-QHU" id="Pw8-IO-bYz"/>
+                        <outlet property="lblCorrectAttemptCount" destination="nRH-4x-urK" id="s4L-Fl-Ngf"/>
+                        <outlet property="lblQuestion" destination="ttd-zj-A4x" id="l3k-ae-0eS"/>
+                        <outlet property="lblWrongAttemptCount" destination="4Ze-zz-afj" id="iJK-LD-p0L"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

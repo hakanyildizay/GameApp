@@ -31,14 +31,14 @@ class GameViewModel: GameViewModelProtocol{
     
     func select(answer: QuestionResult, for question: Word) {
         
-        let correctAnswer = wordDictionary[question.text_eng]
-        let answerCorrect = correctAnswer == question.text_spa
+        let translatedWord = wordDictionary[question.text_eng]
+        let questionAnswerIsCorrect = translatedWord == question.text_spa
         var result = QuestionResult.wrong
         switch answer {
         case .correct:
-            result = answerCorrect ? .correct : .wrong
+            result = questionAnswerIsCorrect ? .correct : .wrong
         case .wrong:
-            result = answerCorrect ? .wrong : .correct
+            result = questionAnswerIsCorrect ? .wrong : .correct
         }
         
         let value = attemptCount[result, default: 0]
