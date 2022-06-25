@@ -13,9 +13,14 @@ class GameViewModel: GameViewModelProtocol{
     var questions = [Word]()                        //This is array of words which contains correct and wrong word pairs
     var wordDictionary: [String: String] = [:]      //This is our source of truth object where we check answers
     var currentIndex: Int = 0
-    var attemptCount: [QuestionResult:Int] = [:]
+    var attemptCount: [QuestionResult:Int] = [:]{
+        didSet{
+            checkIfGameHasEnded()
+        }
+    }
     var timer: Timer? = nil
     var counter: Int = Constants.round
+    var gameState: GameState = .notInitiated
     
     init(with view: GameViewProtocol, datasource: WordDataSource) {
         self.view = view
@@ -51,11 +56,24 @@ class GameViewModel: GameViewModelProtocol{
     }
     
     func askForNextQuestion() {
-        if let question = self.getCurrentQuestion(){
-            self.view?.shouldDisplayNext(word: question)
-            self.currentIndex += 1
-            self.startTimer()
+        
+        switch self.gameState{
+            
+        case .finished:
+            self.stopTimer()
+            break
+        
+        case .playing, .notInitiated:
+            if let question = self.getCurrentQuestion(){
+                self.gameState = .playing
+                self.view?.shouldDisplayNext(word: question)
+                self.currentIndex += 1
+                self.startTimer()
+            }
+            
         }
+        
+        
     }
     
     func getCurrentQuestion()->Word?{
@@ -149,6 +167,17 @@ class GameViewModel: GameViewModelProtocol{
             attemptCount[.wrong] = value + 1
             self.view?.answerResult(isCorrect: .wrong)
         }
+    }
+    
+    func checkIfGameHasEnded(){
+        
+        if self.attemptCount.count == Constants.endingPairCount ||
+            self.attemptCount[.wrong, default: 0] == Constants.endingIncorrectAttemptCount{
+            self.stopTimer()
+            self.gameState = .finished
+            self.view?.shouldEndTheGame()
+        }
+        
     }
     
 }

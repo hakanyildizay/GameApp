@@ -55,6 +55,18 @@ class GameViewController: UIViewController, StoryboardInstantiable, GameViewProt
     }
     
     func shouldEndTheGame() {
+     
+        let alertController = UIAlertController(title: "Game Ended",
+                                                message: "Thank you for playing",
+                                                preferredStyle: .alert)
+        let action = UIAlertAction(title: "Close",
+                                   style: .default) { action in
+            exit(-1)
+        }
+        
+        alertController.addAction(action)
+        
+        self.present(alertController, animated: true, completion: nil)
         
     }
 }
