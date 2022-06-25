@@ -9,8 +9,8 @@ import Foundation
 
 struct WordDataSource{
     
-    let fileName: String
-    let bundle: Bundle
+    private let fileName: String
+    private let bundle: Bundle
     
     init(with filename: String, bundle: Bundle = Bundle.main) {
         self.fileName = filename

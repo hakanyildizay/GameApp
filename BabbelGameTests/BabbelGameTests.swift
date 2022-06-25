@@ -42,6 +42,20 @@ class BabbelGameTests: XCTestCase {
         
     }
 
+    
+    func testIfNextQuestionIsCalledIfViewModelIsCreated() throws{
+        
+        
+        let gameView = MockGameViewController()
+        let viewModel = GameViewModel(with: gameView)
+        gameView.viewModel = viewModel
+        
+        viewModel.askForNextQuestion()
+        
+        XCTAssertNotNil(gameView.nextQuestion, "Next Question should be ready when askForNextQuestion() method is called")
+        
+    }
+    
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
         self.measure {

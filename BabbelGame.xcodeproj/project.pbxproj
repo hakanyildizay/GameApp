@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		72BF26012866EAAE00F2FB3A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BF26002866EAAE00F2FB3A /* AppDelegate.swift */; };
 		72BF26032866EAAE00F2FB3A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BF26022866EAAE00F2FB3A /* SceneDelegate.swift */; };
-		72BF26052866EAAE00F2FB3A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BF26042866EAAE00F2FB3A /* ViewController.swift */; };
+		72BF26052866EAAE00F2FB3A /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BF26042866EAAE00F2FB3A /* GameViewController.swift */; };
 		72BF26082866EAAE00F2FB3A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72BF26062866EAAE00F2FB3A /* Main.storyboard */; };
 		72BF260A2866EAB000F2FB3A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 72BF26092866EAB000F2FB3A /* Assets.xcassets */; };
 		72BF260D2866EAB000F2FB3A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72BF260B2866EAB000F2FB3A /* LaunchScreen.storyboard */; };
@@ -21,6 +21,9 @@
 		72BF26362866EE6700F2FB3A /* WordDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BF26352866EE6700F2FB3A /* WordDataSource.swift */; };
 		72BF26392866F1D600F2FB3A /* testwords.json in Resources */ = {isa = PBXBuildFile; fileRef = 72BF26382866F1D600F2FB3A /* testwords.json */; };
 		72BF263D2866F46600F2FB3A /* testwordsfailed.json in Resources */ = {isa = PBXBuildFile; fileRef = 72BF263C2866F46600F2FB3A /* testwordsfailed.json */; };
+		72BF263F2866F61600F2FB3A /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BF263E2866F61600F2FB3A /* GameViewModel.swift */; };
+		72BF26412866F67400F2FB3A /* GameProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BF26402866F67400F2FB3A /* GameProtocol.swift */; };
+		72BF26442866FB8B00F2FB3A /* MockGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BF26432866FB8B00F2FB3A /* MockGameViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,7 +47,7 @@
 		72BF25FD2866EAAE00F2FB3A /* BabbelGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BabbelGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72BF26002866EAAE00F2FB3A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		72BF26022866EAAE00F2FB3A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		72BF26042866EAAE00F2FB3A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		72BF26042866EAAE00F2FB3A /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		72BF26072866EAAE00F2FB3A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		72BF26092866EAB000F2FB3A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		72BF260C2866EAB000F2FB3A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -59,6 +62,9 @@
 		72BF26352866EE6700F2FB3A /* WordDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordDataSource.swift; sourceTree = "<group>"; };
 		72BF26382866F1D600F2FB3A /* testwords.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testwords.json; sourceTree = "<group>"; };
 		72BF263C2866F46600F2FB3A /* testwordsfailed.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testwordsfailed.json; sourceTree = "<group>"; };
+		72BF263E2866F61600F2FB3A /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
+		72BF26402866F67400F2FB3A /* GameProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameProtocol.swift; sourceTree = "<group>"; };
+		72BF26432866FB8B00F2FB3A /* MockGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGameViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,13 +118,15 @@
 				72BF26302866EC8800F2FB3A /* dataset */,
 				72BF26002866EAAE00F2FB3A /* AppDelegate.swift */,
 				72BF26022866EAAE00F2FB3A /* SceneDelegate.swift */,
-				72BF26042866EAAE00F2FB3A /* ViewController.swift */,
+				72BF26042866EAAE00F2FB3A /* GameViewController.swift */,
 				72BF26062866EAAE00F2FB3A /* Main.storyboard */,
 				72BF26092866EAB000F2FB3A /* Assets.xcassets */,
 				72BF260B2866EAB000F2FB3A /* LaunchScreen.storyboard */,
 				72BF260E2866EAB000F2FB3A /* Info.plist */,
 				72BF26332866ED4000F2FB3A /* Word.swift */,
 				72BF26352866EE6700F2FB3A /* WordDataSource.swift */,
+				72BF263E2866F61600F2FB3A /* GameViewModel.swift */,
+				72BF26402866F67400F2FB3A /* GameProtocol.swift */,
 			);
 			path = BabbelGame;
 			sourceTree = "<group>";
@@ -126,6 +134,7 @@
 		72BF26162866EAB000F2FB3A /* BabbelGameTests */ = {
 			isa = PBXGroup;
 			children = (
+				72BF26422866FB6C00F2FB3A /* Mock */,
 				72BF26372866F1A800F2FB3A /* dataset */,
 				72BF26172866EAB000F2FB3A /* BabbelGameTests.swift */,
 			);
@@ -156,6 +165,14 @@
 				72BF263C2866F46600F2FB3A /* testwordsfailed.json */,
 			);
 			path = dataset;
+			sourceTree = "<group>";
+		};
+		72BF26422866FB6C00F2FB3A /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				72BF26432866FB8B00F2FB3A /* MockGameViewController.swift */,
+			);
+			path = Mock;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -292,10 +309,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				72BF26052866EAAE00F2FB3A /* ViewController.swift in Sources */,
+				72BF263F2866F61600F2FB3A /* GameViewModel.swift in Sources */,
+				72BF26052866EAAE00F2FB3A /* GameViewController.swift in Sources */,
 				72BF26342866ED4000F2FB3A /* Word.swift in Sources */,
 				72BF26362866EE6700F2FB3A /* WordDataSource.swift in Sources */,
 				72BF26012866EAAE00F2FB3A /* AppDelegate.swift in Sources */,
+				72BF26412866F67400F2FB3A /* GameProtocol.swift in Sources */,
 				72BF26032866EAAE00F2FB3A /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -304,6 +323,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72BF26442866FB8B00F2FB3A /* MockGameViewController.swift in Sources */,
 				72BF26182866EAB000F2FB3A /* BabbelGameTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
