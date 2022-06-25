@@ -19,11 +19,7 @@ class BabbelGameTests: XCTestCase {
     }
 
     func testIfDataSourceReturnsMoreThanZeroItemsIfJsonIsValid() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+        
         let testBundle = Bundle(for: type(of: self))
         let datasource = WordDataSource(with: "testwords",
                                         bundle: testBundle)
@@ -86,7 +82,41 @@ class BabbelGameTests: XCTestCase {
         
     }
     
+    func testWrongNumberOfAttemptIsCorrectWhenAnswerIsWrong() throws {
+        
+        let testBundle = Bundle(for: type(of: self))
+        let datasource = WordDataSource(with: "testwords",
+                                        bundle: testBundle)
+        let gameView = MockGameViewController()
+        let viewModel = GameViewModel(with: gameView,
+                                      datasource: datasource)
+        gameView.viewModel = viewModel
+        
+        let newQuestion = Word(text_eng: "primary school",
+                               text_spa: "profesor / profesora")
+        viewModel.select(answer: .correct, for: newQuestion)
+        let wrongAttempt = viewModel.attemptCount[.wrong, default: 0]
+        
+        XCTAssertEqual(wrongAttempt, 1, "Wrong Attemp Should be 1")
+    }
     
+    func testCorrectNumberOfAttemptIsCorrectWhenAnswerIsCorrect() throws {
+        
+        let testBundle = Bundle(for: type(of: self))
+        let datasource = WordDataSource(with: "testwords",
+                                        bundle: testBundle)
+        let gameView = MockGameViewController()
+        let viewModel = GameViewModel(with: gameView,
+                                      datasource: datasource)
+        gameView.viewModel = viewModel
+        
+        let newQuestion = Word(text_eng: "primary school",
+                               text_spa: "escuela primaria")
+        viewModel.select(answer: .correct, for: newQuestion)
+        let correctAttempt = viewModel.attemptCount[.correct, default: 0]
+        
+        XCTAssertEqual(correctAttempt, 1, "Wrong Attemp Should be 1")
+    }
     
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
