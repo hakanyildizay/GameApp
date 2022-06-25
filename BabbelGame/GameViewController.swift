@@ -53,5 +53,9 @@ class GameViewController: UIViewController, StoryboardInstantiable, GameViewProt
         self.viewModel?.askForNextQuestion()
         
     }
+    
+    func shouldEndTheGame() {
+        
+    }
 }
 

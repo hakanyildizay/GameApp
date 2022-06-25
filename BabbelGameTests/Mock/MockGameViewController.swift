@@ -22,4 +22,8 @@ class MockGameViewController: GameViewProtocol{
         result = isCorrect
     }
     
+    func shouldEndTheGame() {
+        
+    }
+    
 }

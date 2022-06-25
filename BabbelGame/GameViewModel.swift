@@ -14,6 +14,8 @@ class GameViewModel: GameViewModelProtocol{
     var wordDictionary: [String: String] = [:]      //This is our source of truth object where we check answers
     var currentIndex: Int = 0
     var attemptCount: [QuestionResult:Int] = [:]
+    var timer: Timer? = nil
+    var counter: Int = Constants.round
     
     init(with view: GameViewProtocol, datasource: WordDataSource) {
         self.view = view
@@ -30,7 +32,7 @@ class GameViewModel: GameViewModelProtocol{
     }
     
     func select(answer: QuestionResult, for question: Word) {
-        
+        self.stopTimer()
         let translatedWord = wordDictionary[question.text_eng]
         let questionAnswerIsCorrect = translatedWord == question.text_spa
         var result = QuestionResult.wrong
@@ -52,6 +54,7 @@ class GameViewModel: GameViewModelProtocol{
         if let question = self.getCurrentQuestion(){
             self.view?.shouldDisplayNext(word: question)
             self.currentIndex += 1
+            self.startTimer()
         }
     }
     
@@ -115,6 +118,37 @@ class GameViewModel: GameViewModelProtocol{
             }
         }
         return random
+    }
+    
+    private func startTimer(){
+        print("Timer has started")
+        self.timer = Timer.scheduledTimer(timeInterval: 1.0,
+                                          target: self,
+                                          selector: #selector(updateCounter),
+                                          userInfo: nil,
+                                          repeats: true)
+    }
+    
+    private func stopTimer(){
+        if let timer = timer {
+            timer.invalidate()
+        }
+        self.timer = nil
+        self.counter = Constants.round
+    }
+    
+    @objc func updateCounter() {
+        
+        if counter > 0 {
+            print("\(counter) seconds to the end of the world")
+            counter -= 1
+        }else{
+            print("Timer has stopped")
+            self.stopTimer()
+            let value = attemptCount[.wrong, default: 0]
+            attemptCount[.wrong] = value + 1
+            self.view?.answerResult(isCorrect: .wrong)
+        }
     }
     
 }
