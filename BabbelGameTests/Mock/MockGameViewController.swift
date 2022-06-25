@@ -12,17 +12,17 @@ class MockGameViewController: GameViewProtocol{
    
     var viewModel: GameViewModelProtocol?
     var nextQuestion: Word? = nil
-    var result: Bool? = nil
+    var result: QuestionResult? = nil
     
     func shouldDisplayNext(word: Word) {
         nextQuestion = word
     }
     
-    func answerResult(isCorrect: Bool) {
+    func answerResult(isCorrect: QuestionResult) {
         result = isCorrect
     }
     
-    func numberOfAttempts(for answer: Bool, count: Int) {
+    func numberOfAttempts(for answer: QuestionResult, count: Int) {
         
     }
     

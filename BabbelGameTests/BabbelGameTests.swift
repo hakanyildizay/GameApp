@@ -43,7 +43,7 @@ class BabbelGameTests: XCTestCase {
     }
 
     
-    func testIfNextQuestionIsCalledIfViewModelIsCreated() throws{
+    func testIfNextQuestionIsReturningNextQuestion() throws{
         
         
         let gameView = MockGameViewController()
@@ -52,7 +52,12 @@ class BabbelGameTests: XCTestCase {
         
         viewModel.askForNextQuestion()
         
-        XCTAssertNotNil(gameView.nextQuestion, "Next Question should be ready when askForNextQuestion() method is called")
+        let nextQuestion = try XCTUnwrap(gameView.nextQuestion, "Next Question should be ready when askForNextQuestion() method is called")
+        XCTAssertEqual(nextQuestion.text_eng, "primary school" ,"Next Question english word should be \"primary school\" ")
+        
+        viewModel.askForNextQuestion()
+        let secondQuestion = try XCTUnwrap(gameView.nextQuestion, "Second Question should be ready when askForNextQuestion() method is called")
+        XCTAssertEqual(secondQuestion.text_eng, "teacher" ,"Next Question english word should be \"teacher\" ")
         
     }
     

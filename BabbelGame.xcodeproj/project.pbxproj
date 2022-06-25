@@ -24,6 +24,7 @@
 		72BF263F2866F61600F2FB3A /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BF263E2866F61600F2FB3A /* GameViewModel.swift */; };
 		72BF26412866F67400F2FB3A /* GameProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BF26402866F67400F2FB3A /* GameProtocol.swift */; };
 		72BF26442866FB8B00F2FB3A /* MockGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BF26432866FB8B00F2FB3A /* MockGameViewController.swift */; };
+		72BF26462866FFB900F2FB3A /* QuestionResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BF26452866FFB900F2FB3A /* QuestionResult.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		72BF263E2866F61600F2FB3A /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
 		72BF26402866F67400F2FB3A /* GameProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameProtocol.swift; sourceTree = "<group>"; };
 		72BF26432866FB8B00F2FB3A /* MockGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGameViewController.swift; sourceTree = "<group>"; };
+		72BF26452866FFB900F2FB3A /* QuestionResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionResult.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +129,7 @@
 				72BF26352866EE6700F2FB3A /* WordDataSource.swift */,
 				72BF263E2866F61600F2FB3A /* GameViewModel.swift */,
 				72BF26402866F67400F2FB3A /* GameProtocol.swift */,
+				72BF26452866FFB900F2FB3A /* QuestionResult.swift */,
 			);
 			path = BabbelGame;
 			sourceTree = "<group>";
@@ -315,6 +318,7 @@
 				72BF26362866EE6700F2FB3A /* WordDataSource.swift in Sources */,
 				72BF26012866EAAE00F2FB3A /* AppDelegate.swift in Sources */,
 				72BF26412866F67400F2FB3A /* GameProtocol.swift in Sources */,
+				72BF26462866FFB900F2FB3A /* QuestionResult.swift in Sources */,
 				72BF26032866EAAE00F2FB3A /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

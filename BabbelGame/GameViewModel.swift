@@ -10,18 +10,24 @@ import Foundation
 class GameViewModel: GameViewModelProtocol{
     
     internal weak var view: GameViewProtocol?
-    
+    var questions: [Word]
+    var currentIndex: Int = 0
     init(with view: GameViewProtocol) {
         self.view = view
+        let datasource = WordDataSource(with: "words")
+        self.questions = datasource.getWords()
     }
     
-    func select(answer: Bool) {
+    func select(answer: QuestionResult) {
         
     }
     
     func askForNextQuestion() {
-        let some = Word(text_eng: "", text_spa: "")
-        self.view?.shouldDisplayNext(word: some)
+        if currentIndex < questions.count{
+            let nextQuestion = questions[currentIndex]
+            self.view?.shouldDisplayNext(word: nextQuestion)
+            self.currentIndex += 1
+        }
     }
     
 }
