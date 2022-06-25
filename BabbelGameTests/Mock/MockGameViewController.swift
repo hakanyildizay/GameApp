@@ -22,8 +22,4 @@ class MockGameViewController: GameViewProtocol{
         result = isCorrect
     }
     
-    func numberOfAttempts(for answer: QuestionResult, count: Int) {
-        
-    }
-    
 }

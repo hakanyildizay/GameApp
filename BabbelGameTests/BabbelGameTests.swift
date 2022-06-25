@@ -55,16 +55,18 @@ class BabbelGameTests: XCTestCase {
         
         viewModel.askForNextQuestion()
         
-        let nextQuestion = try XCTUnwrap(gameView.nextQuestion, "Next Question should be ready when askForNextQuestion() method is called")
-        XCTAssertEqual(nextQuestion.text_eng, "primary school" ,"Next Question english word should be \"primary school\" ")
+        _ = try XCTUnwrap(gameView.nextQuestion, "Next Question should be ready when askForNextQuestion() method is called")
+
+        //Reset last question from view
+        gameView.nextQuestion = nil
         
         viewModel.askForNextQuestion()
-        let secondQuestion = try XCTUnwrap(gameView.nextQuestion, "Second Question should be ready when askForNextQuestion() method is called")
-        XCTAssertEqual(secondQuestion.text_eng, "teacher" ,"Next Question english word should be \"teacher\" ")
+        
+        _ = try XCTUnwrap(gameView.nextQuestion, "Second Question should be ready when askForNextQuestion() method is called")
         
     }
     
-    func testIfSelectResultIsCorrectWhenAnswerIsCorrect() throws{
+    func testIfSelectResultIsWrongWhenAnswerIsWrong() throws{
         
         let testBundle = Bundle(for: type(of: self))
         let datasource = WordDataSource(with: "testwords",
@@ -74,17 +76,17 @@ class BabbelGameTests: XCTestCase {
                                       datasource: datasource)
         gameView.viewModel = viewModel
         
-        viewModel.askForNextQuestion()
+        //Wrong Answer
+        let newQuestion = Word(text_eng: "primary school",
+                               text_spa: "profesor / profesora")
+        viewModel.select(answer: .correct, for: newQuestion)
         
-        let nextQuestion = gameView.nextQuestion
-        
-        let question = try XCTUnwrap(nextQuestion, "there should be a question")
-        viewModel.select(answer: .correct, for: question)
-        
-        let result = try XCTUnwrap(gameView.result, "result should correct")
-        XCTAssertEqual(result, .correct, "\"primary school\" is \"escuela primaria\"")
+        let result = try XCTUnwrap(gameView.result, "result should be wrong")
+        XCTAssertEqual(result, .wrong, "\"primary school\" is \"escuela primaria\"")
         
     }
+    
+    
     
     func testPerformanceExample() throws {
         // This is an example of a performance test case.

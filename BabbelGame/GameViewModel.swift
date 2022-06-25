@@ -55,7 +55,7 @@ class GameViewModel: GameViewModelProtocol{
         }
     }
     
-    private func getCurrentQuestion()->Word?{
+    func getCurrentQuestion()->Word?{
         
         if currentIndex < questions.count{
             return questions[currentIndex]
@@ -67,11 +67,54 @@ class GameViewModel: GameViewModelProtocol{
     
     private func createQuestions(from words: [Word])->[Word]{
         
-        let ratio = 0.25
+        var questions = [Word]()
         
+        for (index, word) in words.enumerated(){
+            
+            if shouldCreateWrongQuestion(){
+                
+                let randomWord = self.getRandomWord(from: words,
+                                                    exceptIndex: index)
+                
+                let newQuestion = Word(text_eng: randomWord.text_eng,
+                                       text_spa: word.text_spa)
+                
+                questions.append(newQuestion)
+                
+            }else{
+                questions.append(word)
+            }
+            
+        }
         
+        return questions
+    }
+    
+    private func getRandomWord(from words: [Word], exceptIndex: Int)->Word{
+        let randomIndex = self.getRandomIndex(exceptIndex: exceptIndex,
+                                              wordCount: words.count)
+        return words[randomIndex]
         
-        return words
+    }
+    
+    private func shouldCreateWrongQuestion()->Bool{
+        let ratio = Constants.ratio
+        let random = arc4random_uniform(100) //Return a number between 0 and 100
+        return random > ratio
+    }
+    
+    private func getRandomIndex(exceptIndex: Int, wordCount: Int)->Int{
+        
+        var random = Int(arc4random_uniform(UInt32(wordCount)))
+        let lastIndex = wordCount - 1
+        if random == exceptIndex {
+            if exceptIndex == lastIndex{
+                random = 0
+            }else{
+                random = lastIndex
+            }
+        }
+        return random
     }
     
 }
