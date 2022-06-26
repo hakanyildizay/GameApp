@@ -9,18 +9,23 @@ import Foundation
 
 class GameViewModel: GameViewModelProtocol{
     
+    private var questions = [Word]()                        //This is array of words which contains correct and wrong word pairs
+    private var wordDictionary: [String: String] = [:]      //This is our source of truth object where we check answers
+    private var currentIndex: Int = 0
+    private var timer: Timer? = nil
+    private var counter: Int = Constants.round
+    private var gameState: GameState = .playing{
+        didSet{
+            self.view?.gameState(changedTo: gameState)
+        }
+    }
+    
     internal weak var view: GameViewProtocol?
-    var questions = [Word]()                        //This is array of words which contains correct and wrong word pairs
-    var wordDictionary: [String: String] = [:]      //This is our source of truth object where we check answers
-    var currentIndex: Int = 0
     var attemptCount: [QuestionResult:Int] = [:]{
         didSet{
             notifyIfGameHasEnded()
         }
     }
-    var timer: Timer? = nil
-    var counter: Int = Constants.round
-    var gameState: GameState = .playing
     
     init(with view: GameViewProtocol, datasource: WordDataSource) {
         self.view = view
@@ -64,7 +69,7 @@ class GameViewModel: GameViewModelProtocol{
             self.stopTimer()
             break
         
-        case .playing:
+        case .playing, .initial:
             if let question = self.getCurrentQuestion(){
                 self.gameState = .playing
                 self.view?.shouldDisplayNext(word: question)
@@ -74,10 +79,17 @@ class GameViewModel: GameViewModelProtocol{
             
         }
         
-        
     }
     
-    func getCurrentQuestion()->Word?{
+    func restartGame() {
+        self.attemptCount[.correct] = 0
+        self.attemptCount[.wrong] = 0
+        self.currentIndex = 0
+        self.counter = Constants.round
+        self.gameState = .initial
+    }
+    
+    private func getCurrentQuestion()->Word?{
         
         if currentIndex < questions.count{
             return questions[currentIndex]
@@ -174,12 +186,23 @@ class GameViewModel: GameViewModelProtocol{
     
     func notifyIfGameHasEnded(){
         
-        if self.attemptCount.count == Constants.endingPairCount ||
-            self.attemptCount[.wrong, default: 0] == Constants.endingIncorrectAttemptCount{
-            self.stopTimer()
-            self.gameState = .finished
-            self.view?.shouldEndTheGame()
+        switch gameState {
+        case .playing, .initial:
+            
+            let sumOfPairs = self.attemptCount.reduce(0) { $0 + $1.value }
+            
+            if sumOfPairs == Constants.endingPairCount ||
+                self.attemptCount[.wrong, default: 0] == Constants.endingIncorrectAttemptCount{
+                self.stopTimer()
+                self.gameState = .finished
+            }
+
+        case .finished:
+            //If the game is already finished there is no need to notify
+            break
         }
+        
+        
         
     }
     

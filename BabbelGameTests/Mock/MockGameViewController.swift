@@ -9,7 +9,7 @@ import Foundation
 @testable import BabbelGame
 
 class MockGameViewController: GameViewProtocol{
-   
+    
     var viewModel: GameViewModelProtocol?
     var nextQuestion: Word? = nil
     var result: QuestionResult? = nil
@@ -28,12 +28,13 @@ class MockGameViewController: GameViewProtocol{
         }
     }
     
-    func shouldEndTheGame() {
-        isGameEnded = true
-    }
-    
-    deinit{
-        print("MockViewController deinited")
+    func gameState(changedTo newState: GameState) {
+        switch newState {
+        case .playing,.initial:
+            isGameEnded = false
+        case .finished:
+            isGameEnded = true
+        }
     }
     
 }

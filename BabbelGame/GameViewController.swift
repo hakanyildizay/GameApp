@@ -54,17 +54,47 @@ class GameViewController: UIViewController, StoryboardInstantiable, GameViewProt
         
     }
     
+    func gameState(changedTo newState: GameState) {
+        
+        switch newState {
+        case .initial:
+            guard let counter = self.viewModel?.attemptCount else { return }
+            let correctCount = counter[.correct, default: 0]
+            let wrongCount = counter[.wrong, default: 0]
+            self.lblCorrectAttemptCount.text = "Correct Attemps: \(correctCount)"
+            self.lblWrongAttemptCount.text = "Wrong Attempts: \(wrongCount)"
+            self.viewModel?.askForNextQuestion()
+        case .playing:
+            //Do nothing
+            break
+        case .finished:
+            self.shouldEndTheGame()
+        }
+        
+    }
+    
+    
     func shouldEndTheGame() {
      
         let alertController = UIAlertController(title: "Game Ended",
                                                 message: "Thank you for playing",
                                                 preferredStyle: .alert)
-        let action = UIAlertAction(title: "Close",
+        
+        let closeAction = UIAlertAction(title: "Close",
                                    style: .default) { action in
             exit(-1)
         }
         
-        alertController.addAction(action)
+        let restartAction = UIAlertAction(title: "Restart",
+                                   style: .default) { [weak self] action in
+            
+            guard let weakSelf = self else { return }
+            weakSelf.viewModel?.restartGame()
+        }
+        
+        alertController.addAction(closeAction)
+        alertController.addAction(restartAction)
+        
         
         self.present(alertController, animated: true, completion: nil)
         
