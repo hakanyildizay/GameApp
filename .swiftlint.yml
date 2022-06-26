@@ -1,0 +1,6 @@
+included:
+
+excluded:
+  - BabbelGame/Word.swift
+
+line_length: 250

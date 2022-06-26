@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum QuestionResult{
+enum QuestionResult {
     case correct
     case wrong
 }

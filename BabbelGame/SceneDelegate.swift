@@ -11,7 +11,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
@@ -22,14 +21,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         appWindow.windowScene = windowScene
 
         // Create list view controller
-        if let gameView = GameViewController.instantiate(){
+        if let gameView = GameViewController.instantiate() {
             let dataSource = WordDataSource(with: "words")
             let gameViewModel = GameViewModel(with: gameView,
                                               datasource: dataSource)
             gameView.viewModel = gameViewModel
             appWindow.rootViewController = gameView
         }
-        
+
         appWindow.makeKeyAndVisible()
 
         window = appWindow
@@ -63,6 +62,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
-
 }
-

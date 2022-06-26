@@ -7,52 +7,51 @@
 
 import Foundation
 
-class WordDataSource{
-    
+class WordDataSource {
+
     private let fileName: String
     private let bundle: Bundle
     private var words: [Word]?
-    
+
     init(with filename: String, bundle: Bundle = Bundle.main) {
         self.fileName = filename
         self.bundle = bundle
         self.words = nil
     }
-    
-    private func loadJson()->Data?{
-        
-        if let url = bundle.url(forResource: fileName, withExtension: "json"){
-            do{
+
+    private func loadJson() -> Data? {
+
+        if let url = bundle.url(forResource: fileName, withExtension: "json") {
+            do {
                 let data = try Data(contentsOf: url)
                 return data
-            }catch{
-                
+            } catch {
+
             }
         }
         return nil
     }
-    
-    func getWords()->[Word]{
-        
+
+    func getWords() -> [Word] {
+
         if let words = words {
             return words
-        }else{
+        } else {
             var loadedWords = [Word]()
-            if let jsonData = loadJson(){
-                do{
+            if let jsonData = loadJson() {
+                do {
                     let decoder = JSONDecoder()
                     let words = try decoder.decode([Word].self, from: jsonData)
                     loadedWords = words
-                }catch{
+                } catch {
                     loadedWords = []
                 }
             }
-            
+
             self.words = loadedWords
             return loadedWords
         }
-        
-        
+
     }
-    
+
 }
