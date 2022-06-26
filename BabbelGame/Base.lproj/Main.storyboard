@@ -38,7 +38,7 @@
                                         </subviews>
                                         <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="8"/>
                                     </stackView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F19-jP-Z9U" userLabel="Questions">
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F19-jP-Z9U" userLabel="Questions">
                                         <rect key="frame" x="0.0" y="41" width="414" height="722"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is a random Spanish translation." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ttd-zj-A4x" userLabel="lblSpanish">
@@ -113,6 +113,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="centerYConstaint" destination="eQ0-ES-9FK" id="eDS-Ke-4Fy"/>
                         <outlet property="lblAnswer" destination="67n-RP-QHU" id="Pw8-IO-bYz"/>
                         <outlet property="lblCorrectAttemptCount" destination="nRH-4x-urK" id="s4L-Fl-Ngf"/>
                         <outlet property="lblQuestion" destination="ttd-zj-A4x" id="l3k-ae-0eS"/>

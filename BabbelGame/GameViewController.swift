@@ -15,6 +15,7 @@ class GameViewController: UIViewController, StoryboardInstantiable, GameViewProt
     @IBOutlet weak var lblWrongAttemptCount: UILabel!
     @IBOutlet weak var lblQuestion: UILabel!
     @IBOutlet weak var lblAnswer: UILabel!
+    @IBOutlet weak var centerYConstaint: NSLayoutConstraint!
     
     var viewModel: GameViewModelProtocol?
     
@@ -23,23 +24,33 @@ class GameViewController: UIViewController, StoryboardInstantiable, GameViewProt
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.viewModel?.askForNextQuestion()
+        self.resetUI {
+            self.viewModel?.askForNextQuestion()
+        }
+    
     }
-
+    
     @IBAction func correctDidTapped(_ sender: UIButton) {
         guard let question = self.currentQuestion else { return }
-        self.viewModel?.select(answer: .correct, for: question)
+        self.resetAnimation {
+            self.viewModel?.select(answer: .correct, for: question)
+        }
+        
     }
     
     @IBAction func wrongDidTapped(_ sender: UIButton) {
         guard let question = self.currentQuestion else { return }
-        self.viewModel?.select(answer: .wrong, for: question)
+        self.resetAnimation {
+            self.viewModel?.select(answer: .wrong, for: question)
+        }
+        
     }
     
     func shouldDisplayNext(word: Word) {
         self.currentQuestion = word
         self.lblQuestion.text = word.text_spa
         self.lblAnswer.text = word.text_eng
+        self.startAnimation()
     }
     
     func answerResult(isCorrect: QuestionResult) {
@@ -56,13 +67,61 @@ class GameViewController: UIViewController, StoryboardInstantiable, GameViewProt
         case .initial:
             guard let counter = self.viewModel?.attemptCount else { return }
             self.updateScoreBoard(with: counter)
-            self.viewModel?.askForNextQuestion()
+            self.resetUI {
+                self.viewModel?.askForNextQuestion()
+            }
+            
         case .playing:
             //Do nothing
             break
         case .finished:
             self.shouldEndTheGame()
         }
+        
+    }
+    
+    private func startAnimation(){
+        
+        guard let superView = self.lblQuestion.superview else { return }
+        var offsetY = superView.frame.height / 2.0
+        offsetY += offsetY * 0.25
+        self.centerYConstaint.constant = offsetY
+        
+        UIView.animate(withDuration: TimeInterval(Constants.round),
+                       delay: 0.0, options: .curveLinear) {
+            superView.layoutIfNeeded()
+        } completion: { (isCompleted) in
+            self.resetUI()
+        }
+
+    }
+    
+    private func resetAnimation(completion: @escaping ()->() = {}){
+        DispatchQueue.main.async {
+            guard let superView = self.lblQuestion.superview else { return }
+            superView.layer.removeAllAnimations()
+            self.lblQuestion.layer.removeAllAnimations()
+            self.lblAnswer.layer.removeAllAnimations()
+            self.resetUI(completion: completion)
+        }
+    }
+    
+    private func resetUI(completion: @escaping ()->() = {}){
+        
+        guard let superView = self.lblQuestion.superview else { return }
+        var offsetY = superView.frame.height / 2.0
+        offsetY += offsetY * 0.25
+        self.centerYConstaint.constant = -offsetY
+        
+        UIView.animate(withDuration: 0.1,
+                       delay: 0.0,
+                       animations: {
+            superView.layoutIfNeeded()
+        }, completion: { completed in
+            if completed{
+                completion()
+            }
+        })
         
     }
     
