@@ -50,6 +50,8 @@ class GameViewController: UIViewController, StoryboardInstantiable, GameViewProt
         self.currentQuestion = word
         self.lblQuestion.text = word.text_spa
         self.lblAnswer.text = word.text_eng
+        self.lblAnswer.layoutIfNeeded()
+        self.lblQuestion.layoutIfNeeded()
         self.startAnimation()
     }
     
@@ -83,12 +85,13 @@ class GameViewController: UIViewController, StoryboardInstantiable, GameViewProt
     private func startAnimation(){
         
         guard let superView = self.lblQuestion.superview else { return }
-        var offsetY = superView.frame.height / 2.0
-        offsetY += offsetY * 0.25
+        var offsetY = superView.frame.height
+        offsetY -= offsetY * 0.3
         self.centerYConstaint.constant = offsetY
         
         UIView.animate(withDuration: TimeInterval(Constants.round),
-                       delay: 0.0, options: .curveLinear) {
+                       delay: 0.0,
+                       options: .curveLinear) {
             superView.layoutIfNeeded()
         } completion: { (isCompleted) in
             self.resetUI()
@@ -109,19 +112,38 @@ class GameViewController: UIViewController, StoryboardInstantiable, GameViewProt
     private func resetUI(completion: @escaping ()->() = {}){
         
         guard let superView = self.lblQuestion.superview else { return }
-        var offsetY = superView.frame.height / 2.0
-        offsetY += offsetY * 0.25
+        var offsetY = superView.frame.height
+        offsetY -= offsetY * 0.3
         self.centerYConstaint.constant = -offsetY
-        
-        UIView.animate(withDuration: 0.1,
+
+        //Fadeout animation
+        UIView.animate(withDuration: 0.3,
                        delay: 0.0,
-                       animations: {
-            superView.layoutIfNeeded()
-        }, completion: { completed in
-            if completed{
-                completion()
-            }
-        })
+                       options: .beginFromCurrentState) {
+            self.lblQuestion.alpha = 0.0
+            self.lblAnswer.alpha = 0.0
+        } completion: { _ in
+            
+            //Change position animation
+            UIView.animate(withDuration: 0.2,
+                           delay: 0.0,
+                           animations: {
+            
+                superView.layoutIfNeeded()
+            
+            }, completion: { completed in
+                if completed{
+                    self.lblAnswer.alpha = 1.0
+                    self.lblQuestion.alpha = 1.0
+                    completion()
+                }
+            })
+            
+        }
+
+        
+        
+        
         
     }
     

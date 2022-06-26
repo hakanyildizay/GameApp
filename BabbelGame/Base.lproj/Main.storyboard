@@ -42,13 +42,13 @@
                                         <rect key="frame" x="0.0" y="41" width="414" height="722"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is a random Spanish translation." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ttd-zj-A4x" userLabel="lblSpanish">
-                                                <rect key="frame" x="62" y="281" width="290" height="60"/>
+                                                <rect key="frame" x="31" y="281" width="352" height="60"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is an English word" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="67n-RP-QHU" userLabel="lblEnglish">
-                                                <rect key="frame" x="99.5" y="396" width="215.5" height="26.5"/>
+                                                <rect key="frame" x="31" y="396" width="352" height="26.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -57,7 +57,8 @@
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="67n-RP-QHU" firstAttribute="top" secondItem="ttd-zj-A4x" secondAttribute="bottom" constant="55" id="Aga-fB-nr5"/>
-                                            <constraint firstItem="ttd-zj-A4x" firstAttribute="width" secondItem="F19-jP-Z9U" secondAttribute="width" multiplier="0.7" id="XLv-CU-dWo"/>
+                                            <constraint firstItem="67n-RP-QHU" firstAttribute="width" secondItem="ttd-zj-A4x" secondAttribute="width" id="NlS-9h-HP1"/>
+                                            <constraint firstItem="ttd-zj-A4x" firstAttribute="width" secondItem="F19-jP-Z9U" secondAttribute="width" multiplier="0.85" id="XLv-CU-dWo"/>
                                             <constraint firstItem="ttd-zj-A4x" firstAttribute="centerX" secondItem="F19-jP-Z9U" secondAttribute="centerX" id="atH-55-Rra"/>
                                             <constraint firstItem="ttd-zj-A4x" firstAttribute="centerY" secondItem="F19-jP-Z9U" secondAttribute="centerY" constant="-50" id="eQ0-ES-9FK"/>
                                             <constraint firstItem="67n-RP-QHU" firstAttribute="centerX" secondItem="ttd-zj-A4x" secondAttribute="centerX" id="eWG-n2-Igf"/>
