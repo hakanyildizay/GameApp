@@ -8,7 +8,6 @@
 import Foundation
 
 enum GameState {
-    case notInitiated
     case playing
     case finished
 }

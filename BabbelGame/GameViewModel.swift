@@ -15,12 +15,12 @@ class GameViewModel: GameViewModelProtocol{
     var currentIndex: Int = 0
     var attemptCount: [QuestionResult:Int] = [:]{
         didSet{
-            checkIfGameHasEnded()
+            notifyIfGameHasEnded()
         }
     }
     var timer: Timer? = nil
     var counter: Int = Constants.round
-    var gameState: GameState = .notInitiated
+    var gameState: GameState = .playing
     
     init(with view: GameViewProtocol, datasource: WordDataSource) {
         self.view = view
@@ -37,6 +37,7 @@ class GameViewModel: GameViewModelProtocol{
     }
     
     func select(answer: QuestionResult, for question: Word) {
+        
         self.stopTimer()
         let translatedWord = wordDictionary[question.text_eng]
         let questionAnswerIsCorrect = translatedWord == question.text_spa
@@ -63,7 +64,7 @@ class GameViewModel: GameViewModelProtocol{
             self.stopTimer()
             break
         
-        case .playing, .notInitiated:
+        case .playing:
             if let question = self.getCurrentQuestion(){
                 self.gameState = .playing
                 self.view?.shouldDisplayNext(word: question)
@@ -139,7 +140,11 @@ class GameViewModel: GameViewModelProtocol{
     }
     
     private func startTimer(){
-        print("Timer has started")
+        
+        if let _ = timer {
+            return
+        }
+        
         self.timer = Timer.scheduledTimer(timeInterval: 1.0,
                                           target: self,
                                           selector: #selector(updateCounter),
@@ -158,10 +163,8 @@ class GameViewModel: GameViewModelProtocol{
     @objc func updateCounter() {
         
         if counter > 0 {
-            print("\(counter) seconds to the end of the world")
             counter -= 1
         }else{
-            print("Timer has stopped")
             self.stopTimer()
             let value = attemptCount[.wrong, default: 0]
             attemptCount[.wrong] = value + 1
@@ -169,7 +172,7 @@ class GameViewModel: GameViewModelProtocol{
         }
     }
     
-    func checkIfGameHasEnded(){
+    func notifyIfGameHasEnded(){
         
         if self.attemptCount.count == Constants.endingPairCount ||
             self.attemptCount[.wrong, default: 0] == Constants.endingIncorrectAttemptCount{

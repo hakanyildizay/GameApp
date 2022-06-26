@@ -18,7 +18,7 @@ class BabbelGameTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testIfDataSourceReturnsMoreThanZeroItemsIfJsonIsValid() throws {
+    func testIfDatasourceReturnsMoreThanZeroItemsWhenJsonIsValid() throws {
         
         let testBundle = Bundle(for: type(of: self))
         let datasource = WordDataSource(with: "testwords",
@@ -28,7 +28,7 @@ class BabbelGameTests: XCTestCase {
         
     }
     
-    func testIfDatasoruceFailsIfJsonIsNotValid() throws{
+    func testIfDatasoruceFailsWhenJsonIsNotValid() throws{
         
         let testBundle = Bundle(for: type(of: self))
         let datasource = WordDataSource(with: "testwordsfailed",
@@ -39,7 +39,7 @@ class BabbelGameTests: XCTestCase {
     }
 
     
-    func testIfNextQuestionIsReturningNextQuestion() throws{
+    func testIfNextQuestionIsCreatedWhenAskForNextQuestionIsCalled() throws{
         
         let testBundle = Bundle(for: type(of: self))
         let datasource = WordDataSource(with: "testwords",
@@ -117,6 +117,63 @@ class BabbelGameTests: XCTestCase {
         
         XCTAssertEqual(correctAttempt, 1, "Wrong Attemp Should be 1")
     }
+    
+    func testIfGameEndsInThreeRoundsWhenThereIsNoAnswerSelection() throws {
+        
+        let testBundle = Bundle(for: type(of: self))
+        let datasource = WordDataSource(with: "testwords2",
+                                        bundle: testBundle)
+        let gameView = MockGameViewController()
+        gameView.isAutoPlayer = true
+        let viewModel = GameViewModel(with: gameView,
+                                      datasource: datasource)
+        gameView.viewModel = viewModel
+        
+        let expectation = XCTestExpectation(description: "Wait response is back")
+        viewModel.askForNextQuestion()
+        
+        //Wait for 19 sec till the end of the game.
+        //((5 sec for each round x 3) + 4 sec buffer)
+        _ = XCTWaiter.wait(for: [expectation], timeout: 19.0)
+        
+        XCTAssertEqual(gameView.isGameEnded, true, "Game should end in 15 sec when there is no interaction")
+        
+    }
+    
+    func testIfGameHasEndedWhenThereAreThreeWrongAttempts() throws {
+        
+        let testBundle = Bundle(for: type(of: self))
+        let datasource = WordDataSource(with: "testwords2",
+                                        bundle: testBundle)
+        let gameView = MockGameViewController()
+        let viewModel = GameViewModel(with: gameView,
+                                      datasource: datasource)
+        gameView.viewModel = viewModel
+        
+        
+        let question1 = Word(text_eng: "hippopotamus", text_spa: "jirafa")
+        let question2 = Word(text_eng: "hunter", text_spa: "corzo")
+        let question3 = Word(text_eng: "tame", text_spa: "cereal")
+        
+        viewModel.select(answer: .correct, for: question1)
+        
+        let firstQuestionResult = try XCTUnwrap(gameView.result)
+        XCTAssertEqual(firstQuestionResult, .wrong, "First question answer should be Wrong")
+        
+        viewModel.select(answer: .correct, for: question2)
+        
+        let secondQuestionResult = try XCTUnwrap(gameView.result)
+        XCTAssertEqual(secondQuestionResult, .wrong, "Second question answer should be Wrong")
+        
+        viewModel.select(answer: .correct, for: question3)
+        
+        let thirdQuestionResult = try XCTUnwrap(gameView.result)
+        XCTAssertEqual(thirdQuestionResult, .wrong, "Third question answer should be Wrong")
+        
+        XCTAssertEqual(gameView.isGameEnded, true, "Game should end in 15 sec when there is no interaction")
+        
+    }
+    
     
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
