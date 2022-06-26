@@ -114,6 +114,8 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnCorrect" destination="p7O-ZS-bvd" id="sbf-BZ-fpv"/>
+                        <outlet property="btnWrong" destination="Jsi-2K-muZ" id="7Jj-uK-8dl"/>
                         <outlet property="centerYConstaint" destination="eQ0-ES-9FK" id="eDS-Ke-4Fy"/>
                         <outlet property="lblAnswer" destination="67n-RP-QHU" id="Pw8-IO-bYz"/>
                         <outlet property="lblCorrectAttemptCount" destination="nRH-4x-urK" id="s4L-Fl-Ngf"/>

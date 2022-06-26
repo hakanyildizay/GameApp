@@ -7,14 +7,16 @@
 
 import Foundation
 
-struct WordDataSource{
+class WordDataSource{
     
     private let fileName: String
     private let bundle: Bundle
+    private var words: [Word]?
     
     init(with filename: String, bundle: Bundle = Bundle.main) {
         self.fileName = filename
         self.bundle = bundle
+        self.words = nil
     }
     
     private func loadJson()->Data?{
@@ -32,16 +34,25 @@ struct WordDataSource{
     
     func getWords()->[Word]{
         
-        if let jsonData = loadJson(){
-            do{
-                let decoder = JSONDecoder()
-                let words = try decoder.decode([Word].self, from: jsonData)
-                return words
-            }catch{
-                return []
+        if let words = words {
+            return words
+        }else{
+            var loadedWords = [Word]()
+            if let jsonData = loadJson(){
+                do{
+                    let decoder = JSONDecoder()
+                    let words = try decoder.decode([Word].self, from: jsonData)
+                    loadedWords = words
+                }catch{
+                    loadedWords = []
+                }
             }
+            
+            self.words = loadedWords
+            return loadedWords
         }
-        return []
+        
+        
     }
     
 }

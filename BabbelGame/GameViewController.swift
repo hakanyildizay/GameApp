@@ -16,6 +16,8 @@ class GameViewController: UIViewController, StoryboardInstantiable, GameViewProt
     @IBOutlet weak var lblQuestion: UILabel!
     @IBOutlet weak var lblAnswer: UILabel!
     @IBOutlet weak var centerYConstaint: NSLayoutConstraint!
+    @IBOutlet weak var btnWrong: UIButton!
+    @IBOutlet weak var btnCorrect: UIButton!
     
     var viewModel: GameViewModelProtocol?
     
@@ -52,6 +54,8 @@ class GameViewController: UIViewController, StoryboardInstantiable, GameViewProt
         self.lblAnswer.text = word.text_eng
         self.lblAnswer.layoutIfNeeded()
         self.lblQuestion.layoutIfNeeded()
+        self.btnWrong.isEnabled = true
+        self.btnCorrect.isEnabled = true
         self.startAnimation()
     }
     
@@ -105,6 +109,8 @@ class GameViewController: UIViewController, StoryboardInstantiable, GameViewProt
             superView.layer.removeAllAnimations()
             self.lblQuestion.layer.removeAllAnimations()
             self.lblAnswer.layer.removeAllAnimations()
+            self.btnWrong.isEnabled = false
+            self.btnCorrect.isEnabled = false
             self.resetUI(completion: completion)
         }
     }

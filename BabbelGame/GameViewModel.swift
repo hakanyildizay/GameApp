@@ -9,6 +9,7 @@ import Foundation
 
 class GameViewModel: GameViewModelProtocol{
     
+    private var datasource: WordDataSource!
     private var questions = [Word]()                        //This is array of words which contains correct and wrong word pairs
     private var wordDictionary: [String: String] = [:]      //This is our source of truth object where we check answers
     private var currentIndex: Int = 0
@@ -30,8 +31,8 @@ class GameViewModel: GameViewModelProtocol{
     init(with view: GameViewProtocol, datasource: WordDataSource) {
         self.view = view
         
+        self.datasource = datasource
         let words = datasource.getWords()
-        
         self.questions = self.createQuestions(from: words)
         self.attemptCount[.correct] = 0
         self.attemptCount[.wrong] = 0
@@ -82,6 +83,7 @@ class GameViewModel: GameViewModelProtocol{
     }
     
     func restartGame() {
+        self.questions = self.createQuestions(from: datasource.getWords())
         self.attemptCount[.correct] = 0
         self.attemptCount[.wrong] = 0
         self.currentIndex = 0
