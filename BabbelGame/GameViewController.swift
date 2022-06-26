@@ -45,11 +45,7 @@ class GameViewController: UIViewController, StoryboardInstantiable, GameViewProt
     func answerResult(isCorrect: QuestionResult) {
         
         guard let counter = self.viewModel?.attemptCount else { return }
-        let correctCount = counter[.correct, default: 0]
-        let wrongCount = counter[.wrong, default: 0]
-        self.lblCorrectAttemptCount.text = "Correct Attemps: \(correctCount)"
-        self.lblWrongAttemptCount.text = "Wrong Attempts: \(wrongCount)"
-        
+        self.updateScoreBoard(with: counter)
         self.viewModel?.askForNextQuestion()
         
     }
@@ -59,10 +55,7 @@ class GameViewController: UIViewController, StoryboardInstantiable, GameViewProt
         switch newState {
         case .initial:
             guard let counter = self.viewModel?.attemptCount else { return }
-            let correctCount = counter[.correct, default: 0]
-            let wrongCount = counter[.wrong, default: 0]
-            self.lblCorrectAttemptCount.text = "Correct Attemps: \(correctCount)"
-            self.lblWrongAttemptCount.text = "Wrong Attempts: \(wrongCount)"
+            self.updateScoreBoard(with: counter)
             self.viewModel?.askForNextQuestion()
         case .playing:
             //Do nothing
@@ -73,8 +66,17 @@ class GameViewController: UIViewController, StoryboardInstantiable, GameViewProt
         
     }
     
+    private func updateScoreBoard(with info: [QuestionResult: Int]){
+        
+        let correctCount = info[.correct, default: 0]
+        let wrongCount = info[.wrong, default: 0]
+        self.lblCorrectAttemptCount.text = "Correct Attemps: \(correctCount)"
+        self.lblWrongAttemptCount.text = "Wrong Attempts: \(wrongCount)"
+        
+    }
     
-    func shouldEndTheGame() {
+    
+    private func shouldEndTheGame() {
      
         let alertController = UIAlertController(title: "Game Ended",
                                                 message: "Thank you for playing",

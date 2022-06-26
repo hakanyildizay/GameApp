@@ -172,7 +172,7 @@ class GameViewModel: GameViewModelProtocol{
         self.counter = Constants.round
     }
     
-    @objc func updateCounter() {
+    @objc private func updateCounter() {
         
         if counter > 0 {
             counter -= 1
@@ -184,21 +184,21 @@ class GameViewModel: GameViewModelProtocol{
         }
     }
     
-    func notifyIfGameHasEnded(){
+    private func notifyIfGameHasEnded(){
         
         switch gameState {
         case .playing, .initial:
             
             let sumOfPairs = self.attemptCount.reduce(0) { $0 + $1.value }
-            
+            let wrongCount = self.attemptCount[.wrong, default: 0]
             if sumOfPairs == Constants.endingPairCount ||
-                self.attemptCount[.wrong, default: 0] == Constants.endingIncorrectAttemptCount{
+                wrongCount == Constants.endingIncorrectAttemptCount{
                 self.stopTimer()
                 self.gameState = .finished
             }
 
         case .finished:
-            //If the game is already finished there is no need to notify
+            //If the game is already finished then there is no need to notify the view
             break
         }
         
