@@ -7,6 +7,10 @@
 
 import Foundation
 
+/**
+ This class is for loasing pair of words from json file.
+ It has a property for Bundle. Because we are passing test bundle instead of application bundle in Unit Test
+ */
 class WordDataSource {
 
     private let fileName: String
@@ -32,6 +36,13 @@ class WordDataSource {
         return nil
     }
 
+    /**
+    It loads word list from json file.
+    
+    - returns: List of Word
+    # Notes: #
+    1. This method is caching word list. If it didn't find the cached list then it will loads it from the disk.
+    */
     func getWords() -> [Word] {
 
         if let words = words {

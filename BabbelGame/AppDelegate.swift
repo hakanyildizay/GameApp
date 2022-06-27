@@ -14,6 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         let isUITesting = ProcessInfo.processInfo.arguments.contains("UITest")
         if isUITesting {
+            // Set animations disabled when UITesting is runnning
             UIView.setAnimationsEnabled(false)
         }
         return true

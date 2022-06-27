@@ -25,8 +25,9 @@ class GameViewController: UIViewController, StoryboardInstantiable, GameViewProt
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        // Move the question view to the top of the screen.
         self.resetUI {
+            // When animation is done then it is right time to ask for the next question to start the game
             self.viewModel?.askForNextQuestion()
         }
 
@@ -35,6 +36,8 @@ class GameViewController: UIViewController, StoryboardInstantiable, GameViewProt
     @IBAction func correctDidTapped(_ sender: UIButton) {
         guard let question = self.currentQuestion else { return }
         self.resetAnimation {
+            // When the questionView is moved on top of the screen
+            // then we can send our answer to the ViewModel
             self.viewModel?.select(answer: .correct, for: question)
         }
 
@@ -43,11 +46,14 @@ class GameViewController: UIViewController, StoryboardInstantiable, GameViewProt
     @IBAction func wrongDidTapped(_ sender: UIButton) {
         guard let question = self.currentQuestion else { return }
         self.resetAnimation {
+            // When the questionView is moved on top of the screen
+            // then we can send our answer to the ViewModel
             self.viewModel?.select(answer: .wrong, for: question)
         }
 
     }
 
+    // When ViewModel is giving a question this is the place that is invoked.
     func shouldDisplayNext(word: Word) {
         self.currentQuestion = word
         self.lblQuestion.text = word.text_spa
@@ -59,6 +65,7 @@ class GameViewController: UIViewController, StoryboardInstantiable, GameViewProt
         self.startAnimation()
     }
 
+    // This method is involed when ViewModel tells if the answer is right or wrong.
     func answerResult(isCorrect: QuestionResult) {
 
         guard let counter = self.viewModel?.attemptCount else { return }
@@ -67,6 +74,7 @@ class GameViewController: UIViewController, StoryboardInstantiable, GameViewProt
 
     }
 
+    // This method is involed when the game state is changed.
     func gameState(changedTo newState: GameState) {
 
         switch newState {
@@ -81,11 +89,12 @@ class GameViewController: UIViewController, StoryboardInstantiable, GameViewProt
             // Do nothing
             break
         case .finished:
-            self.shouldEndTheGame()
+            self.finishTheGame()
         }
 
     }
 
+    // The slide down animation of the question labels (Spanish+English)
     private func startAnimation() {
 
         guard let superView = self.lblQuestion.superview else { return }
@@ -103,6 +112,7 @@ class GameViewController: UIViewController, StoryboardInstantiable, GameViewProt
 
     }
 
+    // Removing animations from questions labels.
     private func resetAnimation(completion: @escaping () -> Void = {}) {
         DispatchQueue.main.async {
             guard let superView = self.lblQuestion.superview else { return }
@@ -115,6 +125,7 @@ class GameViewController: UIViewController, StoryboardInstantiable, GameViewProt
         }
     }
 
+    // The slide up + fadeout animation of the question labels (Spanihs+English)
     private func resetUI(completion: @escaping () -> Void = {}) {
 
         guard let superView = self.lblQuestion.superview else { return }
@@ -158,7 +169,7 @@ class GameViewController: UIViewController, StoryboardInstantiable, GameViewProt
 
     }
 
-    private func shouldEndTheGame() {
+    private func finishTheGame() {
 
         let alertController = UIAlertController(title: "Game Ended",
                                                 message: "Thank you for playing",
