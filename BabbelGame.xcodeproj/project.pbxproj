@@ -11,6 +11,7 @@
 		7281458828678CC40044FF26 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7281458728678CC40044FF26 /* Constants.swift */; };
 		7281458A286795C10044FF26 /* StoryboardInstantiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72814589286795C10044FF26 /* StoryboardInstantiable.swift */; };
 		7281458C28679DEF0044FF26 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7281458B28679DEF0044FF26 /* GameState.swift */; };
+		728145952869FE2B0044FF26 /* StringResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728145942869FE2B0044FF26 /* StringResources.swift */; };
 		72BF26012866EAAE00F2FB3A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BF26002866EAAE00F2FB3A /* AppDelegate.swift */; };
 		72BF26032866EAAE00F2FB3A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BF26022866EAAE00F2FB3A /* SceneDelegate.swift */; };
 		72BF26052866EAAE00F2FB3A /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BF26042866EAAE00F2FB3A /* GameViewController.swift */; };
@@ -53,6 +54,7 @@
 		7281458728678CC40044FF26 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		72814589286795C10044FF26 /* StoryboardInstantiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardInstantiable.swift; sourceTree = "<group>"; };
 		7281458B28679DEF0044FF26 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
+		728145942869FE2B0044FF26 /* StringResources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringResources.swift; sourceTree = "<group>"; };
 		72BF25FD2866EAAE00F2FB3A /* BabbelGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BabbelGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72BF26002866EAAE00F2FB3A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		72BF26022866EAAE00F2FB3A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 			children = (
 				7281458728678CC40044FF26 /* Constants.swift */,
 				72814589286795C10044FF26 /* StoryboardInstantiable.swift */,
+				728145942869FE2B0044FF26 /* StringResources.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -393,6 +396,7 @@
 				72BF26342866ED4000F2FB3A /* Word.swift in Sources */,
 				72BF26362866EE6700F2FB3A /* WordDataSource.swift in Sources */,
 				72BF26012866EAAE00F2FB3A /* AppDelegate.swift in Sources */,
+				728145952869FE2B0044FF26 /* StringResources.swift in Sources */,
 				72BF26412866F67400F2FB3A /* GameProtocol.swift in Sources */,
 				72BF26462866FFB900F2FB3A /* QuestionResult.swift in Sources */,
 				72BF26032866EAAE00F2FB3A /* SceneDelegate.swift in Sources */,

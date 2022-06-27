@@ -164,23 +164,23 @@ class GameViewController: UIViewController, StoryboardInstantiable, GameViewProt
 
         let correctCount = info[.correct, default: 0]
         let wrongCount = info[.wrong, default: 0]
-        self.lblCorrectAttemptCount.text = "Correct Attemps: \(correctCount)"
-        self.lblWrongAttemptCount.text = "Wrong Attempts: \(wrongCount)"
+        self.lblCorrectAttemptCount.text = StringResources.GameView.correctAttempts+" \(correctCount)"
+        self.lblWrongAttemptCount.text = StringResources.GameView.wrongAttempts+" \(wrongCount)"
 
     }
 
     private func finishTheGame() {
 
-        let alertController = UIAlertController(title: "Game Ended",
-                                                message: "Thank you for playing",
+        let alertController = UIAlertController(title: StringResources.GameView.gameEnded,
+                                                message: StringResources.GameView.thankYou,
                                                 preferredStyle: .alert)
 
-        let closeAction = UIAlertAction(title: "Close",
+        let closeAction = UIAlertAction(title: StringResources.GameView.close,
                                    style: .default) { _ in
             exit(-1)
         }
 
-        let restartAction = UIAlertAction(title: "Restart",
+        let restartAction = UIAlertAction(title: StringResources.GameView.restart,
                                    style: .default) { [weak self] _ in
 
             guard let weakSelf = self else { return }
