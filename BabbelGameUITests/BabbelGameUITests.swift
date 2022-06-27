@@ -22,21 +22,53 @@ class BabbelGameUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
-        // UI tests must launch the application that they test.
+    func testIfApplicationQuitsWhenOnlyCorrectButtonIsPressed() throws {
+
         let app = XCUIApplication()
+        app.launchArguments = ["UITest"]
         app.launch()
 
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let correctButton = app.buttons.element(matching: .button, identifier: "btnCorrect")
+        let wrongButton = app.buttons.element(matching: .button, identifier: "btnWrong")
+        addUIInterruptionMonitor(withDescription: "alerthandler") { (alert) -> Bool in
+
+            let alertButton = alert.buttons["Close"]
+            if alertButton.exists {
+                alertButton.tap()
+                return true
+            }
+
+            return false
+        }
+        app.tap()
+
+        var alertView = app.alerts["Game Ended"]
+        while !alertView.exists {
+
+            let predicate = NSPredicate(format: "isHittable == 1")
+
+            expectation(for: predicate, evaluatedWith: wrongButton, handler: nil)
+            waitForExpectations(timeout: 5, handler: nil)
+
+            expectation(for: predicate, evaluatedWith: correctButton, handler: nil)
+            waitForExpectations(timeout: 5, handler: nil)
+
+            let random = arc4random_uniform(100)
+            if random % 2 == 0 {
+                if correctButton.exists {
+                    correctButton.tap()
+                }
+            } else {
+                if wrongButton.exists {
+                    wrongButton.tap()
+                }
+
+            }
+
+            alertView = app.alerts["Game Ended"]
+
+        }
+
     }
 
-    func testLaunchPerformance() throws {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTApplicationLaunchMetric()]) {
-                XCUIApplication().launch()
-            }
-        }
-    }
 }

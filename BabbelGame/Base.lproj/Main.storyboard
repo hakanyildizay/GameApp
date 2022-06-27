@@ -43,18 +43,21 @@
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is a random Spanish translation." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ttd-zj-A4x" userLabel="lblSpanish">
                                                 <rect key="frame" x="31" y="281" width="352" height="60"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="lblSpanish"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is an English word" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="67n-RP-QHU" userLabel="lblEnglish">
                                                 <rect key="frame" x="31" y="396" width="352" height="26.5"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="lblEnglish"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="viewQuestions"/>
                                         <constraints>
                                             <constraint firstItem="67n-RP-QHU" firstAttribute="top" secondItem="ttd-zj-A4x" secondAttribute="bottom" constant="55" id="Aga-fB-nr5"/>
                                             <constraint firstItem="67n-RP-QHU" firstAttribute="width" secondItem="ttd-zj-A4x" secondAttribute="width" id="NlS-9h-HP1"/>
@@ -72,6 +75,7 @@
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p7O-ZS-bvd" userLabel="btnCorrect">
                                                         <rect key="frame" x="8" y="8" width="195" height="39"/>
+                                                        <accessibility key="accessibilityConfiguration" identifier="btnCorrect"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="filled" title="Correct"/>
                                                         <connections>
@@ -80,6 +84,7 @@
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jsi-2K-muZ" userLabel="btnWrong">
                                                         <rect key="frame" x="211" y="8" width="195" height="39"/>
+                                                        <accessibility key="accessibilityConfiguration" identifier="btnWrong"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="filled" title="Wrong"/>
                                                         <connections>

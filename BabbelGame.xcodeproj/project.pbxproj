@@ -111,6 +111,44 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		72814590286901ED0044FF26 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				72BF26402866F67400F2FB3A /* GameProtocol.swift */,
+				728145932869022A0044FF26 /* Model */,
+				728145922869021A0044FF26 /* ViewModel */,
+				728145912869020A0044FF26 /* View */,
+			);
+			path = Game;
+			sourceTree = "<group>";
+		};
+		728145912869020A0044FF26 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				72BF26042866EAAE00F2FB3A /* GameViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		728145922869021A0044FF26 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				72BF26352866EE6700F2FB3A /* WordDataSource.swift */,
+				72BF263E2866F61600F2FB3A /* GameViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		728145932869022A0044FF26 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7281458B28679DEF0044FF26 /* GameState.swift */,
+				72BF26452866FFB900F2FB3A /* QuestionResult.swift */,
+				72BF26332866ED4000F2FB3A /* Word.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		72BF25F42866EAAE00F2FB3A = {
 			isa = PBXGroup;
 			children = (
@@ -136,19 +174,13 @@
 			children = (
 				7281458628678CAE0044FF26 /* Utilities */,
 				72BF26302866EC8800F2FB3A /* dataset */,
+				72814590286901ED0044FF26 /* Game */,
 				72BF26002866EAAE00F2FB3A /* AppDelegate.swift */,
 				72BF26022866EAAE00F2FB3A /* SceneDelegate.swift */,
-				72BF26042866EAAE00F2FB3A /* GameViewController.swift */,
 				72BF26062866EAAE00F2FB3A /* Main.storyboard */,
 				72BF26092866EAB000F2FB3A /* Assets.xcassets */,
 				72BF260B2866EAB000F2FB3A /* LaunchScreen.storyboard */,
 				72BF260E2866EAB000F2FB3A /* Info.plist */,
-				72BF26332866ED4000F2FB3A /* Word.swift */,
-				72BF26352866EE6700F2FB3A /* WordDataSource.swift */,
-				72BF263E2866F61600F2FB3A /* GameViewModel.swift */,
-				72BF26402866F67400F2FB3A /* GameProtocol.swift */,
-				72BF26452866FFB900F2FB3A /* QuestionResult.swift */,
-				7281458B28679DEF0044FF26 /* GameState.swift */,
 			);
 			path = BabbelGame;
 			sourceTree = "<group>";
