@@ -6,19 +6,21 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol GameViewProtocol: AnyObject {
     var viewModel: GameViewModelProtocol? { get set }
-    func shouldDisplayNext(word: Word)  // When a new question is ready, it should be shown to the user
-    func answerResult(isCorrect: QuestionResult)  // When user select either true/false, then it should get notified if he is correct or wrong
-    func gameState(changedTo newState: GameState)   // GameView updates its UI according to that information
 }
 
 protocol GameViewModelProtocol: AnyObject {
 
     var view: GameViewProtocol? { get set }
-    var attemptCount: [QuestionResult: Int] { get set } // Keeps track of user score
+    var state: BehaviorSubject<GameState> { get }
+    var answerResult: PublishSubject<QuestionResult> { get }
+    var nextQuestion: PublishSubject<Word> { get }
+    var scores: BehaviorSubject<[QuestionResult: Int]> { get }
     func askForNextQuestion()           // Whenever view is ready to get a new question, it will ask from viewModel to get next
     func select(answer: QuestionResult, for question: Word) // Answering questions if it Wrong or Correct.
     func restartGame()
+    func getScoreBoardTitle(for score: Int, type: QuestionResult) -> String
 }

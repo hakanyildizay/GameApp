@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RxSwift
 
 class GameViewModel: GameViewModelProtocol {
 
@@ -15,18 +16,15 @@ class GameViewModel: GameViewModelProtocol {
     private var currentIndex: Int = 0                       // Keep track of next question index
     private var timer: Timer?                               // Timer for round
     private var counter: Int = Constants.round
-    private var gameState: GameState = .playing {
-        didSet {
-            self.view?.gameState(changedTo: gameState)
-        }
-    }
-
+    private var disposeBag = DisposeBag()
+    
+    public var state: BehaviorSubject<GameState> = BehaviorSubject(value: .playing)
+    public var answerResult: PublishSubject<QuestionResult> = PublishSubject()
+    public var nextQuestion: PublishSubject<Word> = PublishSubject()
+    // Score Table ex: [.wrong] = 2, [.correct] = 3
+    public var scores: BehaviorSubject<[QuestionResult: Int]> = BehaviorSubject(value: [.wrong: 0,
+                                                                                         .correct: 0])
     internal weak var view: GameViewProtocol?
-    var attemptCount: [QuestionResult: Int] = [:] {         // Score Table ex: [.wrong] = 2, [.correct] = 3
-        didSet {
-            notifyIfGameHasEnded()
-        }
-    }
 
     /**
      GameViewModel needs a GameViewProtocol object to tell the game progress and
@@ -39,11 +37,13 @@ class GameViewModel: GameViewModelProtocol {
         self.datasource = datasource
         let words = datasource.getWords()
         self.questions = self.createQuestions(from: words)
-        self.attemptCount[.correct] = 0
-        self.attemptCount[.wrong] = 0
 
         // Construct source of truth for words
         words.forEach({ wordDictionary[$0.text_eng] = $0.text_spa })
+
+        self.scores.subscribe { _ in
+            self.notifyIfGameHasEnded()
+        }.disposed(by: disposeBag)
 
     }
     /**
@@ -66,10 +66,12 @@ class GameViewModel: GameViewModelProtocol {
             result = questionAnswerIsCorrect ? .wrong : .correct
         }
 
-        let value = attemptCount[result, default: 0]
-        attemptCount[result] = value + 1
+        guard var scoreTable = try? scores.value() else { return }
+        let value = scoreTable[result, default: 0]
+        scoreTable[result] = value + 1
 
-        self.view?.answerResult(isCorrect: result)
+        self.scores.onNext(scoreTable)
+        self.answerResult.onNext(result)
 
     }
 
@@ -78,18 +80,22 @@ class GameViewModel: GameViewModelProtocol {
     */
     func askForNextQuestion() {
 
-        switch self.gameState {
+        let gameState = try? self.state.value()
+
+        switch gameState {
 
         case .finished:
             self.stopTimer()
         case .playing, .initial:
             if let question = self.getCurrentQuestion() {
-                self.gameState = .playing
-                self.view?.shouldDisplayNext(word: question)
+                self.state.on(.next(.playing))
+                self.nextQuestion.onNext(question)
                 self.currentIndex += 1
                 self.startTimer()
             }
 
+        case .none:
+            break
         }
 
     }
@@ -100,11 +106,21 @@ class GameViewModel: GameViewModelProtocol {
     */
     func restartGame() {
         self.questions = self.createQuestions(from: datasource.getWords())
-        self.attemptCount[.correct] = 0
-        self.attemptCount[.wrong] = 0
+        self.scores.onNext([.wrong: 0, .correct: 0])
         self.currentIndex = 0
         self.counter = Constants.round
-        self.gameState = .initial
+        self.state.onNext(.initial)
+    }
+
+    func getScoreBoardTitle(for score: Int, type: QuestionResult) -> String {
+
+        switch type {
+        case .correct:
+            return StringResources.GameView.correctAttempts+"\(score)"
+        case .wrong:
+            return StringResources.GameView.wrongAttempts+"\(score)"
+        }
+
     }
 
     private func getCurrentQuestion() -> Word? {
@@ -223,9 +239,13 @@ class GameViewModel: GameViewModelProtocol {
             counter -= 1
         } else {
             self.stopTimer()
-            let value = attemptCount[.wrong, default: 0]
-            attemptCount[.wrong] = value + 1
-            self.view?.answerResult(isCorrect: .wrong)
+
+            guard var scoreTable = try? scores.value() else { return }
+
+            let value = scoreTable[.wrong, default: 0]
+            scoreTable[.wrong] = value + 1
+            self.scores.onNext(scoreTable)
+            self.answerResult.onNext(.wrong)
         }
     }
 
@@ -236,19 +256,25 @@ class GameViewModel: GameViewModelProtocol {
     */
     private func notifyIfGameHasEnded() {
 
+        let gameState = try? self.state.value()
+
         switch gameState {
         case .playing, .initial:
 
-            let sumOfPairs = self.attemptCount.reduce(0) { $0 + $1.value }
-            let wrongCount = self.attemptCount[.wrong, default: 0]
+            guard let scoreTable = try? scores.value() else { return }
+            let sumOfPairs = scoreTable.reduce(0) { $0 + $1.value }
+            let wrongCount = scoreTable[.wrong, default: 0]
             if sumOfPairs == Constants.endingPairCount ||
                 wrongCount == Constants.endingIncorrectAttemptCount {
                 self.stopTimer()
-                self.gameState = .finished
+                self.state.onNext(.finished)
             }
 
         case .finished:
             // If the game is already finished then there is no need to notify the view
+            break
+
+        case .none:
             break
         }
 
