@@ -17,7 +17,7 @@ class GameViewModel: GameViewModelProtocol {
     private var timer: Timer?                               // Timer for round
     private var counter: Int = Constants.round
     private var disposeBag = DisposeBag()
-    
+
     public var state: BehaviorSubject<GameState> = BehaviorSubject(value: .playing)
     public var answerResult: PublishSubject<QuestionResult> = PublishSubject()
     public var nextQuestion: PublishSubject<Word> = PublishSubject()
