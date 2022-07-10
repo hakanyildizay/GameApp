@@ -24,15 +24,12 @@ class GameViewModel: GameViewModelProtocol {
     // Score Table ex: [.wrong] = 2, [.correct] = 3
     public var scores: BehaviorSubject<[QuestionResult: Int]> = BehaviorSubject(value: [.wrong: 0,
                                                                                          .correct: 0])
-    internal weak var view: GameViewProtocol?
-
     /**
      GameViewModel needs a GameViewProtocol object to tell the game progress and
      a data source object to load words from it. it needs word list to construct question list.
      When word list is fetch, then new dictionary object is created to compare translated words.
     */
-    init(with view: GameViewProtocol, datasource: WordDataSource) {
-        self.view = view
+    init(datasource: WordDataSource) {
 
         self.datasource = datasource
         let words = datasource.getWords()

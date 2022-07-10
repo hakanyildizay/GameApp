@@ -14,7 +14,6 @@ protocol GameViewProtocol: AnyObject {
 
 protocol GameViewModelProtocol: AnyObject {
 
-    var view: GameViewProtocol? { get set }
     var state: BehaviorSubject<GameState> { get }
     var answerResult: PublishSubject<QuestionResult> { get }
     var nextQuestion: PublishSubject<Word> { get }

@@ -7,6 +7,7 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 
 class GameViewController: UIViewController, StoryboardInstantiable, GameViewProtocol {
 
@@ -122,15 +123,6 @@ class GameViewController: UIViewController, StoryboardInstantiable, GameViewProt
 
     }
 
-    private func updateScoreBoard(with info: [QuestionResult: Int]) {
-
-        let correctCount = info[.correct, default: 0]
-        let wrongCount = info[.wrong, default: 0]
-        self.lblCorrectAttemptCount.text = StringResources.GameView.correctAttempts+" \(correctCount)"
-        self.lblWrongAttemptCount.text = StringResources.GameView.wrongAttempts+" \(wrongCount)"
-
-    }
-
     private func finishTheGame() {
 
         self.resetAnimation()
@@ -162,6 +154,22 @@ class GameViewController: UIViewController, StoryboardInstantiable, GameViewProt
 extension GameViewController {
 
     private func initListeners() {
+
+        self.viewModel?.scores
+            .asObservable()
+            .map { input -> String? in
+                return self.viewModel?.getScoreBoardTitle(for: input[.correct, default: 0],
+                                                             type: .correct)
+            }.bind(to: self.lblCorrectAttemptCount.rx.text)
+            .disposed(by: disposeBag)
+
+        self.viewModel?.scores
+            .asObserver()
+            .map { input -> String? in
+            return self.viewModel?.getScoreBoardTitle(for: input[.wrong, default: 0],
+                                                         type: .wrong)
+            }.bind(to: self.lblWrongAttemptCount.rx.text)
+            .disposed(by: disposeBag)
 
         // Listen for game state changes
         self.viewModel?.state.subscribe({ [weak self] event in
@@ -205,17 +213,6 @@ extension GameViewController {
             weakSelf.btnWrong.isEnabled = true
             weakSelf.btnCorrect.isEnabled = true
             weakSelf.startAnimation()
-
-        }).disposed(by: disposeBag)
-
-        self.viewModel?.scores.subscribe({ [weak self] (event) in
-
-            guard let weakSelf = self else { return }
-            guard let scoreBoard = event.element else { return }
-            let wrongScores = weakSelf.viewModel?.getScoreBoardTitle(for: scoreBoard[.wrong, default: 0], type: .wrong)
-            let correctScores = weakSelf.viewModel?.getScoreBoardTitle(for: scoreBoard[.correct, default: 0], type: .correct)
-            weakSelf.lblWrongAttemptCount.text = wrongScores
-            weakSelf.lblCorrectAttemptCount.text = correctScores
 
         }).disposed(by: disposeBag)
 
