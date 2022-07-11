@@ -31,3 +31,6 @@ we may need to have that data coming over network. So I leave it as object depen
 #  What would be the first thing to improve or add if there has been more time
 
 * The first thing would be is to add Error handling mechanism. For example, in ***GameViewModel***,  ```select()``` and ```askForNextQuestions()``` methods should be tested with more scenarios. And each needs to deliver appropriate errors to the **View** if there are two successive method calls.  
+
+
+Note: Please run "pod install" if you wanted to build 'feature/RxSwift' branch.
