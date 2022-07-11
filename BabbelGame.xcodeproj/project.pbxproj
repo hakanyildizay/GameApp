@@ -31,6 +31,7 @@
 		72BF26412866F67400F2FB3A /* GameProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BF26402866F67400F2FB3A /* GameProtocol.swift */; };
 		72BF26442866FB8B00F2FB3A /* MockGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BF26432866FB8B00F2FB3A /* MockGameViewController.swift */; };
 		72BF26462866FFB900F2FB3A /* QuestionResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BF26452866FFB900F2FB3A /* QuestionResult.swift */; };
+		72BFC0C1287C3B4D007303F5 /* MockDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BFC0C0287C3B4D007303F5 /* MockDataSource.swift */; };
 		969A12EC1BE70CC738C0E717 /* Pods_BabbelGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CBDB0D3FFA67D8943751DB6 /* Pods_BabbelGame.framework */; };
 /* End PBXBuildFile section */
 
@@ -85,6 +86,7 @@
 		72BF26402866F67400F2FB3A /* GameProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameProtocol.swift; sourceTree = "<group>"; };
 		72BF26432866FB8B00F2FB3A /* MockGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGameViewController.swift; sourceTree = "<group>"; };
 		72BF26452866FFB900F2FB3A /* QuestionResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionResult.swift; sourceTree = "<group>"; };
+		72BFC0C0287C3B4D007303F5 /* MockDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDataSource.swift; sourceTree = "<group>"; };
 		77BF11FD215DBB72E42E7174 /* Pods-BabbelGame-BabbelGameUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BabbelGame-BabbelGameUITests.debug.xcconfig"; path = "Target Support Files/Pods-BabbelGame-BabbelGameUITests/Pods-BabbelGame-BabbelGameUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B29C9D21F677600D9AB9B9AF /* Pods_BabbelGameTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BabbelGameTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F795A2CC54CB3318FC8A7777 /* Pods-BabbelGameTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BabbelGameTests.release.xcconfig"; path = "Target Support Files/Pods-BabbelGameTests/Pods-BabbelGameTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -128,7 +130,6 @@
 				42E728A2F028A393C4A6EDBC /* Pods-BabbelGameTests.debug.xcconfig */,
 				F795A2CC54CB3318FC8A7777 /* Pods-BabbelGameTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -269,6 +270,7 @@
 			isa = PBXGroup;
 			children = (
 				72BF26432866FB8B00F2FB3A /* MockGameViewController.swift */,
+				72BFC0C0287C3B4D007303F5 /* MockDataSource.swift */,
 			);
 			path = Mock;
 			sourceTree = "<group>";
@@ -554,6 +556,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72BFC0C1287C3B4D007303F5 /* MockDataSource.swift in Sources */,
 				72BF26442866FB8B00F2FB3A /* MockGameViewController.swift in Sources */,
 				72BF26182866EAB000F2FB3A /* BabbelGameTests.swift in Sources */,
 			);

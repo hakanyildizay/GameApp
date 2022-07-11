@@ -10,7 +10,7 @@ import RxSwift
 
 class GameViewModel: GameViewModelProtocol {
 
-    private var datasource: WordDataSource!                 // Gets word list and caches it
+    private var datasource: DataSourceProtocol!                 // Gets word list and caches it
     private var questions = [Word]()                        // This is array of words which contains correct and wrong word pairs
     private var wordDictionary: [String: String] = [:]      // This is our source of truth object where we check answers
     private var currentIndex: Int = 0                       // Keep track of next question index
@@ -29,7 +29,7 @@ class GameViewModel: GameViewModelProtocol {
      a data source object to load words from it. it needs word list to construct question list.
      When word list is fetch, then new dictionary object is created to compare translated words.
     */
-    init(datasource: WordDataSource) {
+    init(datasource: DataSourceProtocol) {
 
         self.datasource = datasource
         let words = datasource.getWords()

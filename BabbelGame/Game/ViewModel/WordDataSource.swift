@@ -7,11 +7,15 @@
 
 import Foundation
 
+protocol DataSourceProtocol {
+    func getWords() -> [Word]
+}
+
 /**
  This class is for loasing pair of words from json file.
  It has a property for Bundle. Because we are passing test bundle instead of application bundle in Unit Test
  */
-class WordDataSource {
+class WordDataSource: DataSourceProtocol {
 
     private let fileName: String
     private let bundle: Bundle
