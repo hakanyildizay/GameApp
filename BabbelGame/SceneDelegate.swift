@@ -23,8 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Create list view controller
         if let gameView = GameViewController.instantiate() {
             let dataSource = WordDataSource(with: "words")
-            let gameViewModel = GameViewModel(with: gameView,
-                                              datasource: dataSource)
+            let gameViewModel = GameViewModel(datasource: dataSource)
             gameView.viewModel = gameViewModel
             appWindow.rootViewController = gameView
         }

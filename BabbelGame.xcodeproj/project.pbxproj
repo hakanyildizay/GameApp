@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0980285553F52B6AE27FB6C1 /* Pods_BabbelGame_BabbelGameUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 131CD91A551A2C4D94541936 /* Pods_BabbelGame_BabbelGameUITests.framework */; };
+		2E4A093D23A086E1D6484673 /* Pods_BabbelGameTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B29C9D21F677600D9AB9B9AF /* Pods_BabbelGameTests.framework */; };
 		7281458528677F7F0044FF26 /* testwords2.json in Resources */ = {isa = PBXBuildFile; fileRef = 7281458428677F7F0044FF26 /* testwords2.json */; };
 		7281458828678CC40044FF26 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7281458728678CC40044FF26 /* Constants.swift */; };
 		7281458A286795C10044FF26 /* StoryboardInstantiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72814589286795C10044FF26 /* StoryboardInstantiable.swift */; };
@@ -29,6 +31,8 @@
 		72BF26412866F67400F2FB3A /* GameProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BF26402866F67400F2FB3A /* GameProtocol.swift */; };
 		72BF26442866FB8B00F2FB3A /* MockGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BF26432866FB8B00F2FB3A /* MockGameViewController.swift */; };
 		72BF26462866FFB900F2FB3A /* QuestionResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BF26452866FFB900F2FB3A /* QuestionResult.swift */; };
+		72BFC0C1287C3B4D007303F5 /* MockDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BFC0C0287C3B4D007303F5 /* MockDataSource.swift */; };
+		969A12EC1BE70CC738C0E717 /* Pods_BabbelGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CBDB0D3FFA67D8943751DB6 /* Pods_BabbelGame.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +53,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0B28712E1AC26A0D9EF53584 /* Pods-BabbelGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BabbelGame.debug.xcconfig"; path = "Target Support Files/Pods-BabbelGame/Pods-BabbelGame.debug.xcconfig"; sourceTree = "<group>"; };
+		129890C19753874F7B48CD68 /* Pods-BabbelGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BabbelGame.release.xcconfig"; path = "Target Support Files/Pods-BabbelGame/Pods-BabbelGame.release.xcconfig"; sourceTree = "<group>"; };
+		131CD91A551A2C4D94541936 /* Pods_BabbelGame_BabbelGameUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BabbelGame_BabbelGameUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3FFE8A18016334F0BCD295A8 /* Pods-BabbelGame-BabbelGameUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BabbelGame-BabbelGameUITests.release.xcconfig"; path = "Target Support Files/Pods-BabbelGame-BabbelGameUITests/Pods-BabbelGame-BabbelGameUITests.release.xcconfig"; sourceTree = "<group>"; };
+		42E728A2F028A393C4A6EDBC /* Pods-BabbelGameTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BabbelGameTests.debug.xcconfig"; path = "Target Support Files/Pods-BabbelGameTests/Pods-BabbelGameTests.debug.xcconfig"; sourceTree = "<group>"; };
+		6CBDB0D3FFA67D8943751DB6 /* Pods_BabbelGame.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BabbelGame.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7281458428677F7F0044FF26 /* testwords2.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testwords2.json; sourceTree = "<group>"; };
 		7281458728678CC40044FF26 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		72814589286795C10044FF26 /* StoryboardInstantiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardInstantiable.swift; sourceTree = "<group>"; };
@@ -76,6 +86,10 @@
 		72BF26402866F67400F2FB3A /* GameProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameProtocol.swift; sourceTree = "<group>"; };
 		72BF26432866FB8B00F2FB3A /* MockGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGameViewController.swift; sourceTree = "<group>"; };
 		72BF26452866FFB900F2FB3A /* QuestionResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionResult.swift; sourceTree = "<group>"; };
+		72BFC0C0287C3B4D007303F5 /* MockDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDataSource.swift; sourceTree = "<group>"; };
+		77BF11FD215DBB72E42E7174 /* Pods-BabbelGame-BabbelGameUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BabbelGame-BabbelGameUITests.debug.xcconfig"; path = "Target Support Files/Pods-BabbelGame-BabbelGameUITests/Pods-BabbelGame-BabbelGameUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		B29C9D21F677600D9AB9B9AF /* Pods_BabbelGameTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BabbelGameTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F795A2CC54CB3318FC8A7777 /* Pods-BabbelGameTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BabbelGameTests.release.xcconfig"; path = "Target Support Files/Pods-BabbelGameTests/Pods-BabbelGameTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				969A12EC1BE70CC738C0E717 /* Pods_BabbelGame.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +105,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E4A093D23A086E1D6484673 /* Pods_BabbelGameTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,12 +113,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0980285553F52B6AE27FB6C1 /* Pods_BabbelGame_BabbelGameUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A3A04126A699C9118854023 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0B28712E1AC26A0D9EF53584 /* Pods-BabbelGame.debug.xcconfig */,
+				129890C19753874F7B48CD68 /* Pods-BabbelGame.release.xcconfig */,
+				77BF11FD215DBB72E42E7174 /* Pods-BabbelGame-BabbelGameUITests.debug.xcconfig */,
+				3FFE8A18016334F0BCD295A8 /* Pods-BabbelGame-BabbelGameUITests.release.xcconfig */,
+				42E728A2F028A393C4A6EDBC /* Pods-BabbelGameTests.debug.xcconfig */,
+				F795A2CC54CB3318FC8A7777 /* Pods-BabbelGameTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		3642C644D6CCB0E379D59CD3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6CBDB0D3FFA67D8943751DB6 /* Pods_BabbelGame.framework */,
+				131CD91A551A2C4D94541936 /* Pods_BabbelGame_BabbelGameUITests.framework */,
+				B29C9D21F677600D9AB9B9AF /* Pods_BabbelGameTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		7281458628678CAE0044FF26 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -158,6 +198,8 @@
 				72BF26162866EAB000F2FB3A /* BabbelGameTests */,
 				72BF26202866EAB000F2FB3A /* BabbelGameUITests */,
 				72BF25FE2866EAAE00F2FB3A /* Products */,
+				1A3A04126A699C9118854023 /* Pods */,
+				3642C644D6CCB0E379D59CD3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -228,6 +270,7 @@
 			isa = PBXGroup;
 			children = (
 				72BF26432866FB8B00F2FB3A /* MockGameViewController.swift */,
+				72BFC0C0287C3B4D007303F5 /* MockDataSource.swift */,
 			);
 			path = Mock;
 			sourceTree = "<group>";
@@ -239,10 +282,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 72BF26272866EAB000F2FB3A /* Build configuration list for PBXNativeTarget "BabbelGame" */;
 			buildPhases = (
+				13C43A9878AFEEF1A6CE6CE9 /* [CP] Check Pods Manifest.lock */,
 				7281458F2868E1890044FF26 /* Swiftlint */,
 				72BF25F92866EAAE00F2FB3A /* Sources */,
 				72BF25FA2866EAAE00F2FB3A /* Frameworks */,
 				72BF25FB2866EAAE00F2FB3A /* Resources */,
+				09038755587557B26E26EA13 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -257,6 +302,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 72BF262A2866EAB000F2FB3A /* Build configuration list for PBXNativeTarget "BabbelGameTests" */;
 			buildPhases = (
+				D7486FDA00711CDC743AAD49 /* [CP] Check Pods Manifest.lock */,
 				72BF260F2866EAB000F2FB3A /* Sources */,
 				72BF26102866EAB000F2FB3A /* Frameworks */,
 				72BF26112866EAB000F2FB3A /* Resources */,
@@ -275,9 +321,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 72BF262D2866EAB000F2FB3A /* Build configuration list for PBXNativeTarget "BabbelGameUITests" */;
 			buildPhases = (
+				05276001923874A4D36CAC9D /* [CP] Check Pods Manifest.lock */,
 				72BF26192866EAB000F2FB3A /* Sources */,
 				72BF261A2866EAB000F2FB3A /* Frameworks */,
 				72BF261B2866EAB000F2FB3A /* Resources */,
+				7079DC8B78F3563E80B69914 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -364,6 +412,84 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		05276001923874A4D36CAC9D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BabbelGame-BabbelGameUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		09038755587557B26E26EA13 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BabbelGame/Pods-BabbelGame-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BabbelGame/Pods-BabbelGame-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BabbelGame/Pods-BabbelGame-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		13C43A9878AFEEF1A6CE6CE9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BabbelGame-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7079DC8B78F3563E80B69914 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BabbelGame-BabbelGameUITests/Pods-BabbelGame-BabbelGameUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BabbelGame-BabbelGameUITests/Pods-BabbelGame-BabbelGameUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BabbelGame-BabbelGameUITests/Pods-BabbelGame-BabbelGameUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		7281458F2868E1890044FF26 /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -381,6 +507,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		D7486FDA00711CDC743AAD49 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BabbelGameTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -408,6 +556,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72BFC0C1287C3B4D007303F5 /* MockDataSource.swift in Sources */,
 				72BF26442866FB8B00F2FB3A /* MockGameViewController.swift in Sources */,
 				72BF26182866EAB000F2FB3A /* BabbelGameTests.swift in Sources */,
 			);
@@ -574,6 +723,7 @@
 		};
 		72BF26282866EAB000F2FB3A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0B28712E1AC26A0D9EF53584 /* Pods-BabbelGame.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -603,6 +753,7 @@
 		};
 		72BF26292866EAB000F2FB3A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 129890C19753874F7B48CD68 /* Pods-BabbelGame.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -632,6 +783,7 @@
 		};
 		72BF262B2866EAB000F2FB3A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 42E728A2F028A393C4A6EDBC /* Pods-BabbelGameTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -652,6 +804,7 @@
 		};
 		72BF262C2866EAB000F2FB3A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F795A2CC54CB3318FC8A7777 /* Pods-BabbelGameTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -672,6 +825,7 @@
 		};
 		72BF262E2866EAB000F2FB3A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 77BF11FD215DBB72E42E7174 /* Pods-BabbelGame-BabbelGameUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -690,6 +844,7 @@
 		};
 		72BF262F2866EAB000F2FB3A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3FFE8A18016334F0BCD295A8 /* Pods-BabbelGame-BabbelGameUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

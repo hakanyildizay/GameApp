@@ -6,16 +6,22 @@
 //
 
 import XCTest
+import RxSwift
+
 @testable import BabbelGame
 
 class BabbelGameTests: XCTestCase {
 
+    var disposeBag: DisposeBag!
+
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        disposeBag = DisposeBag()
     }
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
+        disposeBag = nil
     }
 
     func testIfDatasourceReturnsMoreThanZeroItemsWhenJsonIsValid() throws {
@@ -44,9 +50,9 @@ class BabbelGameTests: XCTestCase {
         let datasource = WordDataSource(with: "testwords",
                                         bundle: testBundle)
         let gameView = MockGameViewController()
-        let viewModel = GameViewModel(with: gameView,
-                                      datasource: datasource)
+        let viewModel = GameViewModel(datasource: datasource)
         gameView.viewModel = viewModel
+        gameView.startListening()
 
         viewModel.askForNextQuestion()
 
@@ -67,9 +73,9 @@ class BabbelGameTests: XCTestCase {
         let datasource = WordDataSource(with: "testwords",
                                         bundle: testBundle)
         let gameView = MockGameViewController()
-        let viewModel = GameViewModel(with: gameView,
-                                      datasource: datasource)
+        let viewModel = GameViewModel(datasource: datasource)
         gameView.viewModel = viewModel
+        gameView.startListening()
 
         // Wrong Answer
         let newQuestion = Word(text_eng: "primary school",
@@ -81,40 +87,64 @@ class BabbelGameTests: XCTestCase {
 
     }
 
-    func testWrongNumberOfAttemptIsCorrectWhenAnswerIsWrong() throws {
+    func testIfScoreIsCorrectWhenAnswerIsWrong() throws {
 
         let testBundle = Bundle(for: type(of: self))
         let datasource = WordDataSource(with: "testwords",
                                         bundle: testBundle)
+
         let gameView = MockGameViewController()
-        let viewModel = GameViewModel(with: gameView,
-                                      datasource: datasource)
+        gameView.startListening()
+        let viewModel = GameViewModel(datasource: datasource)
         gameView.viewModel = viewModel
+        gameView.startListening()
+
+        let expectation = XCTestExpectation(description: "Wait response is back")
+        var wrongAttemptCount = 0
+        viewModel.scores.subscribe { (scores) in
+            if let attemptsLeft = scores.element {
+                wrongAttemptCount = attemptsLeft[.wrong, default: 0]
+            }
+            expectation.fulfill()
+        }.disposed(by: disposeBag)
 
         let newQuestion = Word(text_eng: "primary school",
                                text_spa: "profesor / profesora")
         viewModel.select(answer: .correct, for: newQuestion)
-        let wrongAttempt = viewModel.attemptCount[.wrong, default: 0]
 
-        XCTAssertEqual(wrongAttempt, 1, "Wrong Attemp Should be 1")
+        _ = XCTWaiter.wait(for: [expectation], timeout: 1.0)
+        XCTAssertEqual(wrongAttemptCount, 1, "Wrong Attempt Should be 1")
+
     }
 
-    func testCorrectNumberOfAttemptIsCorrectWhenAnswerIsCorrect() throws {
+    func testIfScoreIsCorrectWhenAnswerIsCorrect() throws {
 
         let testBundle = Bundle(for: type(of: self))
         let datasource = WordDataSource(with: "testwords",
                                         bundle: testBundle)
         let gameView = MockGameViewController()
-        let viewModel = GameViewModel(with: gameView,
-                                      datasource: datasource)
+        gameView.startListening()
+        let viewModel = GameViewModel(datasource: datasource)
         gameView.viewModel = viewModel
+        gameView.startListening()
+
+        let expectation = XCTestExpectation(description: "Wait response is back")
+
+        var correctAttemptCount = 0
+        viewModel.scores.subscribe { (scores) in
+            if let attemptsLeft = scores.element {
+                correctAttemptCount = attemptsLeft[.correct, default: 0]
+            }
+            expectation.fulfill()
+        }.disposed(by: disposeBag)
 
         let newQuestion = Word(text_eng: "primary school",
                                text_spa: "escuela primaria")
         viewModel.select(answer: .correct, for: newQuestion)
-        let correctAttempt = viewModel.attemptCount[.correct, default: 0]
 
-        XCTAssertEqual(correctAttempt, 1, "Wrong Attemp Should be 1")
+        _ = XCTWaiter.wait(for: [expectation], timeout: 1.0)
+
+        XCTAssertEqual(correctAttemptCount, 1, "Correct Attempt Should be 1")
     }
 
     func testIfGameEndsInThreeRoundsWhenThereIsNoAnswerSelection() throws {
@@ -124,9 +154,10 @@ class BabbelGameTests: XCTestCase {
                                         bundle: testBundle)
         let gameView = MockGameViewController()
         gameView.isAutoPlayer = true
-        let viewModel = GameViewModel(with: gameView,
-                                      datasource: datasource)
+
+        let viewModel = GameViewModel(datasource: datasource)
         gameView.viewModel = viewModel
+        gameView.startListening()
 
         let expectation = XCTestExpectation(description: "Wait response is back")
         viewModel.askForNextQuestion()
@@ -144,31 +175,63 @@ class BabbelGameTests: XCTestCase {
         let testBundle = Bundle(for: type(of: self))
         let datasource = WordDataSource(with: "testwords2",
                                         bundle: testBundle)
-        let gameView = MockGameViewController()
-        let viewModel = GameViewModel(with: gameView,
-                                      datasource: datasource)
-        gameView.viewModel = viewModel
+
+        let expGameResult = XCTestExpectation(description: "Wait response is back")
+
+        let viewModel = GameViewModel(datasource: datasource)
 
         let question1 = Word(text_eng: "hippopotamus", text_spa: "jirafa")
         let question2 = Word(text_eng: "hunter", text_spa: "corzo")
         let question3 = Word(text_eng: "tame", text_spa: "cereal")
 
+        var isGameEnded: Bool = false
+        viewModel.state.subscribe(onNext: { (gameState) in
+
+            switch gameState {
+            case .finished:
+                isGameEnded = true
+            default:
+                break
+            }
+
+            expGameResult.fulfill()
+
+        }).disposed(by: disposeBag)
+
+        var wrongCount = 0
+        viewModel.answerResult.subscribe(onNext: { _ in
+            wrongCount += 1
+        }).disposed(by: disposeBag)
+
         viewModel.select(answer: .correct, for: question1)
-
-        let firstQuestionResult = try XCTUnwrap(gameView.result)
-        XCTAssertEqual(firstQuestionResult, .wrong, "First question answer should be Wrong")
-
         viewModel.select(answer: .correct, for: question2)
-
-        let secondQuestionResult = try XCTUnwrap(gameView.result)
-        XCTAssertEqual(secondQuestionResult, .wrong, "Second question answer should be Wrong")
-
         viewModel.select(answer: .correct, for: question3)
 
-        let thirdQuestionResult = try XCTUnwrap(gameView.result)
-        XCTAssertEqual(thirdQuestionResult, .wrong, "Third question answer should be Wrong")
+        XCTAssertEqual(wrongCount, 3, "All questions answers should be Wrong")
 
-        XCTAssertEqual(gameView.isGameEnded, true, "Game should end in 15 sec when there is no interaction")
+        _ = XCTWaiter.wait(for: [expGameResult], timeout: 1.0)
+        XCTAssertEqual(isGameEnded, true, "Game should end when there is no interaction")
+
+    }
+
+    func testIfGameStartsWhenWordsAreLoadedFromMemory() throws {
+
+        let someWords = [Word(text_eng: "welcome", text_spa: "hola"),
+                         Word(text_eng: "english", text_spa: "inglesa"),
+                         Word(text_eng: "peach", text_spa: "durazno"),
+                         Word(text_eng: "beach", text_spa: "playa"),
+                         Word(text_eng: "flag", text_spa: "bandera")]
+
+        let dataSource = MockDataSource(with: someWords)
+        let gameViewModel = GameViewModel(datasource: dataSource)
+        let gameView = MockGameViewController()
+        gameView.viewModel = gameViewModel
+        gameView.startListening()
+
+        gameViewModel.askForNextQuestion()
+
+        let firstQuestion = try XCTUnwrap(gameView.nextQuestion)
+        print("Question: \(firstQuestion)")
 
     }
 

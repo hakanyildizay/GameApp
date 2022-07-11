@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class GameViewController: UIViewController, StoryboardInstantiable, GameViewProtocol {
 
@@ -22,9 +24,11 @@ class GameViewController: UIViewController, StoryboardInstantiable, GameViewProt
     var viewModel: GameViewModelProtocol?
 
     var currentQuestion: Word?
+    var disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.initListeners()
         // Move the question view to the top of the screen.
         self.resetUI {
             // When animation is done then it is right time to ask for the next question to start the game
@@ -49,47 +53,6 @@ class GameViewController: UIViewController, StoryboardInstantiable, GameViewProt
             // When the questionView is moved on top of the screen
             // then we can send our answer to the ViewModel
             self.viewModel?.select(answer: .wrong, for: question)
-        }
-
-    }
-
-    // When ViewModel is giving a question this is the place that is invoked.
-    func shouldDisplayNext(word: Word) {
-        self.currentQuestion = word
-        self.lblQuestion.text = word.text_spa
-        self.lblAnswer.text = word.text_eng
-        self.lblAnswer.layoutIfNeeded()
-        self.lblQuestion.layoutIfNeeded()
-        self.btnWrong.isEnabled = true
-        self.btnCorrect.isEnabled = true
-        self.startAnimation()
-    }
-
-    // This method is involed when ViewModel tells if the answer is right or wrong.
-    func answerResult(isCorrect: QuestionResult) {
-
-        guard let counter = self.viewModel?.attemptCount else { return }
-        self.updateScoreBoard(with: counter)
-        self.viewModel?.askForNextQuestion()
-
-    }
-
-    // This method is involed when the game state is changed.
-    func gameState(changedTo newState: GameState) {
-
-        switch newState {
-        case .initial:
-            guard let counter = self.viewModel?.attemptCount else { return }
-            self.updateScoreBoard(with: counter)
-            self.resetUI {
-                self.viewModel?.askForNextQuestion()
-            }
-
-        case .playing:
-            // Do nothing
-            break
-        case .finished:
-            self.finishTheGame()
         }
 
     }
@@ -160,16 +123,9 @@ class GameViewController: UIViewController, StoryboardInstantiable, GameViewProt
 
     }
 
-    private func updateScoreBoard(with info: [QuestionResult: Int]) {
-
-        let correctCount = info[.correct, default: 0]
-        let wrongCount = info[.wrong, default: 0]
-        self.lblCorrectAttemptCount.text = StringResources.GameView.correctAttempts+" \(correctCount)"
-        self.lblWrongAttemptCount.text = StringResources.GameView.wrongAttempts+" \(wrongCount)"
-
-    }
-
     private func finishTheGame() {
+
+        self.resetAnimation()
 
         let alertController = UIAlertController(title: StringResources.GameView.gameEnded,
                                                 message: StringResources.GameView.thankYou,
@@ -193,4 +149,73 @@ class GameViewController: UIViewController, StoryboardInstantiable, GameViewProt
         self.present(alertController, animated: true, completion: nil)
 
     }
+}
+
+extension GameViewController {
+
+    private func initListeners() {
+
+        self.viewModel?.scores
+            .asObservable()
+            .map { input -> String? in
+                return self.viewModel?.getScoreBoardTitle(for: input[.correct, default: 0],
+                                                             type: .correct)
+            }.bind(to: self.lblCorrectAttemptCount.rx.text)
+            .disposed(by: disposeBag)
+
+        self.viewModel?.scores
+            .asObserver()
+            .map { input -> String? in
+            return self.viewModel?.getScoreBoardTitle(for: input[.wrong, default: 0],
+                                                         type: .wrong)
+            }.bind(to: self.lblWrongAttemptCount.rx.text)
+            .disposed(by: disposeBag)
+
+        // Listen for game state changes
+        self.viewModel?.state.subscribe({ [weak self] event in
+
+            guard let newState = event.element else { return }
+            guard let weakSelf = self else { return }
+
+            switch newState {
+
+            case .initial:
+                weakSelf.resetUI {
+                    weakSelf.viewModel?.askForNextQuestion()
+                }
+
+            case .playing:
+                // Do nothing
+                break
+            case .finished:
+                weakSelf.finishTheGame()
+            }
+
+        }).disposed(by: disposeBag)
+
+        self.viewModel?.answerResult.subscribe({ [weak self] (_) in
+
+            guard let weakSelf = self else { return }
+            weakSelf.viewModel?.askForNextQuestion()
+
+        }).disposed(by: disposeBag)
+
+        self.viewModel?.nextQuestion.subscribe({ [weak self] (event) in
+
+            guard let weakSelf = self else { return }
+            guard let nextQuestion = event.element else { return }
+
+            weakSelf.currentQuestion = nextQuestion
+            weakSelf.lblQuestion.text = nextQuestion.text_spa
+            weakSelf.lblAnswer.text = nextQuestion.text_eng
+            weakSelf.lblAnswer.layoutIfNeeded()
+            weakSelf.lblQuestion.layoutIfNeeded()
+            weakSelf.btnWrong.isEnabled = true
+            weakSelf.btnCorrect.isEnabled = true
+            weakSelf.startAnimation()
+
+        }).disposed(by: disposeBag)
+
+    }
+
 }

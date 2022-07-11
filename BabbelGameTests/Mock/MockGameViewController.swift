@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import RxSwift
+
 @testable import BabbelGame
 
 class MockGameViewController: GameViewProtocol {
@@ -15,26 +17,35 @@ class MockGameViewController: GameViewProtocol {
     var result: QuestionResult?
     var isGameEnded: Bool = false
     var isAutoPlayer: Bool = false
+    var disposeBag = DisposeBag()
 
-    func shouldDisplayNext(word: Word) {
-        nextQuestion = word
-    }
+    func startListening() {
 
-    func answerResult(isCorrect: QuestionResult) {
-        result = isCorrect
+        viewModel?.answerResult.subscribe(onNext: { [weak self] (resultEvent) in
+            guard let weakSelf = self else { return }
+            weakSelf.result = resultEvent
 
-        if isAutoPlayer {
-            self.viewModel?.askForNextQuestion()
-        }
-    }
+            if weakSelf.isAutoPlayer {
+                weakSelf.viewModel?.askForNextQuestion()
+            }
 
-    func gameState(changedTo newState: GameState) {
-        switch newState {
-        case .playing, .initial:
-            isGameEnded = false
-        case .finished:
-            isGameEnded = true
-        }
+        }).disposed(by: disposeBag)
+
+        viewModel?.nextQuestion.subscribe(onNext: { [weak self] (word) in
+            guard let weakSelf = self else { return }
+            weakSelf.nextQuestion = word
+        }).disposed(by: disposeBag)
+
+        viewModel?.state.subscribe(onNext: { [weak self] (state) in
+            guard let weakSelf = self else { return }
+            switch state {
+            case .playing, .initial:
+                weakSelf.isGameEnded = false
+            case .finished:
+                weakSelf.isGameEnded = true
+            }
+        }).disposed(by: disposeBag)
+
     }
 
 }
